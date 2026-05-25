@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Arcade I/O Pico Carrier v0.1 — Field Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="paper.css">
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!-- ========================================================
+     RUNNING TOP BAR — like a folio header on every page
+     ======================================================== -->
+<header class="topbar">
+  <div class="wrap" style="display:grid; grid-template-columns: auto 1fr auto; gap:24px; align-items:center; padding: 18px 0;">
+    <a href="index.html" class="brand-mark" aria-label="Arcade Commons">
+      <svg viewBox="0 0 401.99 401.99" class="ac-mark" aria-hidden="true">
+        <path fill="currentColor" d="m129.69,122.57l5.56,28.89c.78,4.06,3.29,7.59,6.87,9.65l24.58,14.19c4.41,2.55,7.13,7.25,7.13,12.35v17.24s-28.1,0-28.1,0c-8.86,0-16.04,7.18-16.04,16.04v42.01c0,10.19,5.44,19.61,14.27,24.7l57.04,32.92v-140.37c0-10.19-5.44-19.61-14.26-24.7l-57.05-32.94Zm44.16,107.82v43.13l-16.84-9.75c-2.2-1.27-3.56-3.62-3.56-6.17l-.02-23.61c0-1.97,1.59-3.56,3.56-3.57l16.86-.04Z"></path>
+        <path fill="currentColor" d="m201,320.59l57.05-32.94c8.82-5.09,14.26-14.51,14.26-24.7v-18.63c0-2.55-1.36-4.9-3.56-6.17l-20.2-11.67v33.24c0,1.27-.68,2.45-1.78,3.09l-18.58,10.72-.02-90.17,17.69-10.21c1.19-.69,2.67.17,2.67,1.54v12.59s23.78-13.72,23.78-13.72l-.02-34.5c.01-10.2-5.43-19.63-14.26-24.73l-57.03-32.91-71.31,41.17,57.05,32.94c8.82,5.09,14.26,14.51,14.26,24.7v140.37Z"></path>
+      </svg>
+      <span class="mono-xs" style="letter-spacing:.14em;">ARCADE&nbsp;COMMONS</span>
+    </a>
+    <span class="mono-xs" style="color:var(--ink-faint); text-align:center; letter-spacing:.14em;">
+      ARCADE&nbsp;I/O&nbsp;·&nbsp;PICO&nbsp;CARRIER&nbsp;v0.1&nbsp;·&nbsp;FIELD&nbsp;GUIDE
+    </span>
+    <span class="mono-xs" style="color:var(--ink-faint); letter-spacing:.14em;">
+      25.05.2026&nbsp;&nbsp;·&nbsp;&nbsp;PRESS&nbsp;<kbd style="font-family:inherit; border:.5px solid var(--rule); padding:1px 6px; letter-spacing:0;">T</kbd>&nbsp;TWEAKS
+    </span>
+  </div>
+  <hr class="rule">
+</header>
+
+<!-- ========================================================
+     COVER — hero · title · contents (1:1 with source)
+     ======================================================== -->
+<section id="cover" data-screen-label="00 Cover" style="padding-top: 32px;">
+  <div class="wrap">
+
+    <div class="folio">
+      <span class="num">FIELD MANUAL</span>
+      <span class="ttl">Arcade I/O · Prototype Stream</span>
+      <span class="meta">REV A · 2026</span>
+    </div>
+    <hr class="rule">
+
+    <div class="hero-block">
+      <span class="eyebrow">Arcade I/O · Field Manual · Prototype Stream</span>
+      <h1 class="hero-h1">Arcade I/O Pico<br/>Carrier <span class="hero-v">v0.1</span></h1>
+      <p class="hero-sub">
+        A purpose-built USB input/output carrier for indie arcade cabinets: buttons, digital joysticks, Hall-effect analog sticks, SpinTrak-style spinners, pots, and a few cabinet LEDs.
+      </p>
+
+      <div class="hero-pills">
+        <span class="hpill"><b>Brain</b>Raspberry Pi Pico H / RP2040</span>
+        <span class="hpill"><b>Inputs</b>32 digital + 8 analog standard</span>
+        <span class="hpill"><b>Spinners</b>2–4 quadrature devices</span>
+        <span class="hpill"><b>Outputs</b>8–10 LED sink channels</span>
+        <span class="hpill"><b>Host</b>USB HID + serial control</span>
+      </div>
+    </div>
+
+    <hr class="rule" style="margin-top: 56px;">
+    <div class="folio">
+      <span class="num">CONTENTS</span>
+      <span class="ttl">Eight sections</span>
+      <span class="meta">≈ 18 min read</span>
+    </div>
+    <hr class="rule">
+
+    <nav class="contents-grid">
+      <a href="#what">
+        <span class="tag-num">§ 01</span>
+        <span class="t">What this board is</span>
+        <span class="t-meta">Pico carrier · v0.1 scope</span>
+      </a>
+      <a href="#anatomy">
+        <span class="tag-num">§ 02</span>
+        <span class="t">Board anatomy</span>
+        <span class="t-meta">Visual walkthrough · 9 blocks</span>
+      </a>
+      <a href="#capacity">
+        <span class="tag-num">§ 03</span>
+        <span class="t">4-joystick capacity</span>
+        <span class="t-meta">Digital and analog arithmetic</span>
+      </a>
+      <a href="#connectors">
+        <span class="tag-num">§ 04</span>
+        <span class="t">Connector map</span>
+        <span class="t-meta">Field-wiring assumptions</span>
+      </a>
+      <a href="#bom">
+        <span class="tag-num">§ 05</span>
+        <span class="t">Prototype BOM</span>
+        <span class="t-meta">Board-side · $35–$55</span>
+      </a>
+      <a href="#firmware">
+        <span class="tag-num">§ 06</span>
+        <span class="t">Firmware + Unity</span>
+        <span class="t-meta">HID + CDC · 1 ms loop</span>
+      </a>
+      <a href="#build">
+        <span class="tag-num">§ 07</span>
+        <span class="t">Build sequence</span>
+        <span class="t-meta">Three passes · cautions</span>
+      </a>
+      <a href="#sources">
+        <span class="tag-num">§ 08</span>
+        <span class="t">Sources</span>
+        <span class="t-meta">References · assumptions</span>
+      </a>
+    </nav>
+  </div>
+</section>
+
+<!-- ========================================================
+     § 01 — What this board is
+     ======================================================== -->
+<section id="what" data-screen-label="01 What this board is">
+  <div class="wrap">
+    <div class="folio">
+      <span class="num">§ 01</span>
+      <span class="ttl">What this board is</span>
+      <span class="meta">Scope · strategy</span>
+    </div>
+    <hr class="rule">
+
+    <div class="what-head">
+      <div>
+        <span class="eyebrow">§ 01 · What this board is</span>
+        <h2 style="margin-top:14px;">A Pico carrier,<br/>not a bare-RP2040 product yet.</h2>
+      </div>
+      <p class="body" style="align-self:end;">
+        The v0.1 board is a Pico-based carrier. The Pico provides USB, firmware flashing, 3.3V logic, timing, PWM, and the main control loop. The carrier board supplies the cabinet-specific hardware: input expansion, analog conversion, spinner headers, LED drivers, power handling, and readable field wiring.
+      </p>
+    </div>
+
+    <div class="stat-row" style="margin-top: 36px;">
+      <div class="stat" style="--lane:var(--teal);">
+        <span class="stat-bar"></span>
+        <span class="stat-n">32</span>
+        <span class="stat-lbl">Digital switch inputs<br/><em>standard</em></span>
+      </div>
+      <div class="stat" style="--lane:var(--green);">
+        <span class="stat-bar"></span>
+        <span class="stat-n">8</span>
+        <span class="stat-lbl">Analog inputs<br/><em>standard</em></span>
+      </div>
+      <div class="stat" style="--lane:var(--vermilion);">
+        <span class="stat-bar"></span>
+        <span class="stat-n">2–4</span>
+        <span class="stat-lbl">Quadrature spinner ports<br/><em>via Pico GPIO</em></span>
+      </div>
+      <div class="stat" style="--lane:var(--orange);">
+        <span class="stat-bar"></span>
+        <span class="stat-n">10</span>
+        <span class="stat-lbl">Low-side LED outputs<br/><em>PWM · MOSFET</em></span>
+      </div>
+    </div>
+
+    <div class="what-strategy" style="margin-top: 32px;">
+      <div class="strategy-card">
+        <h3>Control strategy</h3>
+        <p class="body" style="margin-top: 10px;">Digital joysticks and buttons are treated as switch-to-ground inputs. Hall-effect joysticks and potentiometers feed the ADC as voltage axes. Spinners feed the Pico directly as quadrature A/B signals so firmware can convert them to mouse movement or signed deltas.</p>
+      </div>
+      <div class="strategy-card">
+        <h3>Software strategy</h3>
+        <p class="body" style="margin-top: 10px;">The board should enumerate as a normal USB input device for gameplay and expose a simple command channel for cabinet feedback. For v0.1, the least painful setup is HID gamepad/mouse for inputs and CDC serial for Unity-driven LEDs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Cover-specific */
+  .topbar { position: sticky; top: 0; background: var(--paper); z-index: 50; }
+
+  /* Hero block — kicker · h1 · subtitle · pills */
+  .hero-block { margin-top: 40px; max-width: 980px; }
+  .hero-h1 {
+    margin-top: 22px;
+    font-size: clamp(40px, 7vw, 96px);
+    line-height: .9;
+    letter-spacing: -.045em;
+    font-weight: 400;
+  }
+  .hero-h1 .hero-v { color: var(--teal); }
+  .hero-sub {
+    margin-top: 22px;
+    font-size: clamp(16px, 1.4vw, 20px);
+    line-height: 1.42;
+    color: var(--ink-soft);
+    max-width: 64ch;
+  }
+  .hero-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    margin-top: 32px;
+    border-top: var(--hair) solid var(--rule);
+    border-left: var(--hair) solid var(--rule);
+  }
+  .hpill {
+    flex: 1 1 220px;
+    padding: 12px 14px;
+    border-right: var(--hair) solid var(--rule);
+    border-bottom: var(--hair) solid var(--rule);
+    background: var(--paper);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .hpill b {
+    font: 500 10px/1.2 var(--mono);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--teal);
+  }
+  .hpill {
+    font: 500 13px/1.3 var(--sans);
+    color: var(--ink);
+  }
+
+  /* Distinct metric cards */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: var(--hair) solid var(--rule);
+    border-left: var(--hair) solid var(--rule);
+  }
+  @media (max-width: 700px) {
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+  }
+  .stat {
+    position: relative;
+    padding: 18px 18px 20px 22px;
+    border-right: var(--hair) solid var(--rule);
+    border-bottom: var(--hair) solid var(--rule);
+    background: var(--paper);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-height: 104px;
+  }
+  .stat-bar {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--lane);
+  }
+  .stat-n {
+    font: 400 36px/1 var(--sans);
+    letter-spacing: -.035em;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-lbl {
+    font: 500 10px/1.4 var(--mono);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-top: auto;
+  }
+  .stat-lbl em {
+    display: block;
+    font-style: normal;
+    color: var(--ink-faint);
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  /* "What this board is" two-card strategy */
+  .what-head {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 48px;
+    margin-top: 36px;
+    align-items: end;
+  }
+  @media (max-width: 900px) {
+    .what-head { grid-template-columns: 1fr; gap: 16px; }
+  }
+  .what-strategy {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: var(--hair) solid var(--rule);
+    border-left: var(--hair) solid var(--rule);
+  }
+  @media (max-width: 800px) {
+    .what-strategy { grid-template-columns: 1fr; }
+  }
+  .strategy-card {
+    padding: 24px 26px 28px;
+    border-right: var(--hair) solid var(--rule);
+    border-bottom: var(--hair) solid var(--rule);
+    background: var(--paper);
+  }
+
+  .contents-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: var(--hair) solid var(--rule);
+    border-left: var(--hair) solid var(--rule);
+  }
+  .contents-grid a {
+    display: grid;
+    gap: 8px;
+    padding: 22px 18px;
+    border-right: var(--hair) solid var(--rule);
+    border-bottom: var(--hair) solid var(--rule);
+    background: var(--paper);
+    color: var(--ink);
+    text-decoration: none;
+    min-height: 100px;
+  }
+  .contents-grid a:hover { background: var(--ink); color: var(--paper); }
+  .contents-grid a:hover .t-meta { color: var(--paper); }
+  .contents-grid a:hover .tag-num { color: var(--paper); }
+  .contents-grid a .tag-num { color: var(--teal); font: 500 10px/1 var(--mono); letter-spacing: .14em; }
+  .contents-grid a .t { font: 500 16px/1.2 var(--sans); letter-spacing: -.018em; }
+  .contents-grid a .t-meta { font: 500 10px/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-faint); }
+
+  @media (max-width: 900px) {
+    .contents-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+
+<!-- ========================================================
+     § 02 — Board anatomy
+     ======================================================== -->
+<section id="anatomy" data-screen-label="02 Anatomy">
+  <div class="wrap">
+    <div class="folio">
+      <span class="num">§ 02</span>
+      <span class="ttl">Board anatomy — visual walkthrough</span>
+      <span class="meta">Top-down · 9 blocks</span>
+    </div>
+    <hr class="rule">
+
+    <div class="anatomy-head">
+      <div>
+        <span class="eyebrow">§ 02 · Anatomy</span>
+        <h2 style="margin-top:14px;">Click or hover any block<br/>in the layout.</h2>
+      </div>
+      <p class="body" style="align-self:end;">
+        The diagram is intentionally installation-oriented: the connector banks are as important as the chips. Colour code: <span class="mono-sm"><span class="dot blue"></span>data</span> · <span class="mono-sm"><span class="dot verm"></span>signal</span> · <span class="mono-sm"><span class="dot gold"></span>power &amp; light</span>.
+      </p>
+    </div>
+
+    <div class="plate" style="margin-top: 36px;">
+      <div class="reg tl"></div><div class="reg tr"></div>
+      <div class="reg bl"></div><div class="reg br"></div>
+
+      <div class="plate-head">
+        <span class="pl-title">FIG. 01 — Arcade I/O Pico Carrier v0.1 · Top-down layout</span>
+        <span class="pl-meta">SHEET 01 / 01 · NORTH ↑</span>
+      </div>
+
+      <div id="anatomy-figure"></div>
+
+      <div class="plate-caption">
+        <span class="fig">Fig. 01</span>
+        <span class="desc">
+          Arcade I/O Pico Carrier v0.1 top-down layout. Teal = switch inputs and data; green = Hall/pot analog inputs; red-orange = quadrature spinners and the hero block; gold = LED sink outputs; the external LED-power input is admitted at the upper-right and never crosses logic ground except at the star point.
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .anatomy-head {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    margin-top: 36px;
+    align-items: end;
+  }
+  @media (max-width: 900px) {
+    .anatomy-head { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- placeholders for the rest — injected by section scripts -->
+<div id="rest"></div>
+
+<!-- ========================================================
+     SCRIPTS
+     ======================================================== -->
+<script type="text/babel" src="mini-diagrams.jsx"></script>
+<script type="text/babel" src="anatomy.jsx"></script>
+<script type="text/babel" src="sections.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="app.jsx"></script>
+
+</body>
+</html>

@@ -172,34 +172,15 @@ function Anatomy() {
             <line x1="0" y1="50" x2="260" y2="50" />
             <line x1="130" y1="20" x2="130" y2="80" />
             <text x="8" y="14" className="lbl fill-only" stroke="none">DRAWING · AIO-PC-001 / 01</text>
-            <text x="8" y="40" className="lbl-sm fill-only" stroke="none">SCALE · INDICATIVE</text>
+            <text x="8" y="40" className="lbl-sm fill-only" stroke="none">NOT TO SCALE</text>
             <text x="138" y="40" className="lbl-sm fill-only" stroke="none">DRWN · A.PRINCEPS</text>
-            <text x="8" y="70" className="lbl-sm fill-only" stroke="none">UNIT · MILLIMETRES</text>
+            <text x="8" y="70" className="lbl-sm fill-only" stroke="none">DIAGRAM · SCHEMATIC</text>
             <text x="138" y="70" className="lbl-sm fill-only" stroke="none">REV · A · 2026</text>
           </g>
 
-          {/* Compass */}
-          <g transform="translate(110 770)" className="ink hair">
-            <circle cx="0" cy="0" r="22" />
-            <path d="M0 -16 L6 0 L0 16 L-6 0 Z" className="ink-fill fill-only" stroke="none" />
-            <text x="-5" y="-28" className="lbl-sm fill-only" stroke="none">N</text>
-            <text x="28" y="4" className="lbl-sm fill-only" stroke="none">E</text>
-            <text x="-7" y="38" className="lbl-sm fill-only" stroke="none">S</text>
-            <text x="-38" y="4" className="lbl-sm fill-only" stroke="none">W</text>
-          </g>
+          {/* Compass removed — orientation is meaningless on a board diagram */}
 
-          {/* Scale bar */}
-          <g transform="translate(220 798)" className="ink hair">
-            <line x1="0" y1="0" x2="180" y2="0" />
-            {Array.from({ length: 5 }).map((_, i) => (
-              <line key={i} x1={i * 45} y1="-5" x2={i * 45} y2="5" />
-            ))}
-            <text x="0" y="22" className="lbl-sm fill-only" stroke="none">0</text>
-            <text x="42" y="22" className="lbl-sm fill-only" stroke="none">20</text>
-            <text x="86" y="22" className="lbl-sm fill-only" stroke="none">40</text>
-            <text x="131" y="22" className="lbl-sm fill-only" stroke="none">60</text>
-            <text x="170" y="22" className="lbl-sm fill-only" stroke="none">80 mm</text>
-          </g>
+          {/* Scale bar removed — figure is schematic, not dimensioned */}
 
           {/* =================================================
               BOARD OUTLINE
@@ -219,7 +200,7 @@ function Anatomy() {
             ARCADE · I / O · PICO · CARRIER · v0.1
           </text>
           <text x="640" y="690" className="lbl-sm fill-only" stroke="none" textAnchor="middle">
-            PCB · 100 × 70 mm (INDICATIVE)
+            SCHEMATIC LAYOUT · NOT TO SCALE
           </text>
 
           {/* =================================================

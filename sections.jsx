@@ -81,10 +81,24 @@ function Capacity() {
         </div>
 
         <hr className="rule" style={{ marginTop: 48 }} />
+        <div className="cap-card">
+          <div className="cap-card-head">
+            <span className="callout-num" style={{ background: 'var(--teal)' }}>?</span>
+            <div><h3>4-way, 8-way, and analog — what actually differs</h3></div>
+          </div>
+          <p className="body" style={{ marginTop: 14 }}>
+            A digital joystick is just four switches: up, down, left, right. A <strong>4-way</strong> stick mechanically (or logically) allows only one at a time. An <strong>8-way</strong> stick uses the <em>same four switches</em> — diagonals come from letting two adjacent directions close at once, so up&nbsp;+&nbsp;right reads as a diagonal. The board never needs a special &ldquo;8-way input&rdquo;: it reads switches and firmware decides how to interpret them.
+          </p>
+          <p className="body" style={{ marginTop: 12 }}>
+            An <strong>analog</strong> Hall or pot stick is different in kind. It reports continuous X and Y voltages instead of on/off contacts, so it lands on the ADC rather than the shift registers — which is why the two stick types draw from completely separate input budgets.
+          </p>
+        </div>
+
+        <hr className="rule" style={{ marginTop: 32 }} />
         <div className="design-rule">
           <span className="callout-num" style={{ background: 'var(--vermilion)' }}>!</span>
           <p>
-            <strong>Design rule:</strong> treat digital-heavy and analog-heavy builds as population options on the same PCB. The same board can be assembled as 32D/8A, 32D/16A, or 48D/8A depending on the cabinet.
+            <strong>Design rule:</strong> because digital and analog draw on separate budgets — shift registers vs. the ADC — four of either type fits, and you can even mix both at standard config. What you can&rsquo;t do is max digital <em>and</em> max analog <em>and</em> a full button complement at once without moving to the 48-input or dual-ADC population. Treat 32D/8A, 32D/16A, and 48D/8A as variants of one PCB.
           </p>
         </div>
       </div>
@@ -335,7 +349,7 @@ function Firmware() {
         <div className="folio">
           <span className="num">§ 06</span>
           <span className="ttl">Firmware and Unity communication</span>
-          <span className="meta">HID + CDC · 1 ms loop</span>
+          <span className="meta">HID + CDC · ~1 ms target loop</span>
         </div>
         <hr className="rule" />
 
@@ -381,7 +395,7 @@ MODE ATTRACT 1`}
         <div className="cap-card" style={{ marginTop: 24 }}>
           <h3>Firmware loop</h3>
           <pre className="loop-pre" style={{ marginTop: 14 }}>
-{`Every 1 ms:
+{`Target scan · roughly 1 ms (timing to confirm):
   latch + read 74HC165 digital inputs
   debounce switch states
   read quadrature spinner counters
@@ -391,6 +405,9 @@ MODE ATTRACT 1`}
   parse LED commands from serial
   update LED PWM outputs`}
           </pre>
+          <p className="body" style={{ marginTop: 14, fontSize: 13, color: 'var(--ink-soft)' }}>
+            Treat ~1 ms as a target for input responsiveness, not a fixed guarantee — the real rate depends on ADC sampling, HID reporting, and how much serial and LED work each pass does. LED output timing in particular may need tuning: with larger or addressable LED arrays, an update rate that doesn&rsquo;t line up cleanly with the scan loop can surface as visible shimmer or marching artifacts in an animation. The discrete MOSFET PWM channels on v0.1 don&rsquo;t hit this — it only becomes a concern if a cabinet later grows into a big addressable array.
+          </p>
         </div>
       </div>
     </section>

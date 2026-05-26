@@ -85,9 +85,9 @@ Opening `index.html` as a **lone file** (double-click, or a single-file preview)
 
 ## Open questions / TODO
 
-- **FIG.01 pin-exact pass (NEXT):** re-route every signal so DATA/CLOCK/LATCH, the SPI bus, spinner A/B, PWM→MOSFET→OUTx, and VLED/fuse land on the actual pad — no floating dashed curves. Pins get routed **once**, in this pass. (The inventory + callout numbers are already locked to the 10 blocks; this pass only touches the signal traces.)
+- **FIG.01 routing — DONE (verify on push):** floating dashed curves replaced with solid orthogonal traces that start on labelled Pico pads and land on real pins. Labelled buses: DATA/CLK/LATCH (74HC165), SCK/MOSI/MISO/CS (MCP3208), A0–A7→CH0–7, spinner A/B, PWM ×10→gates, drain→OUTx, GND rail→PSU, VLED+ (LED anodes external). Functions are labelled **by bus, not by invented GP numbers**. *Eyeball on push:* (a) left field has three trace bands (shift 300–330 / spinner 360–465 / SPI 540–585) — check none look tangled; (b) the DATA tap crosses the shift runs and the drains cross the GND rail — those are intended cross-overs, not joins; (c) the dense 8-wire analog comb bottom-centre; (d) PWM verticals brushing the N-CH symbol near Q3–Q5.
 - **FIG.01 title block:** kept as plain branding (`NOT TO SCALE`). Open: keep, or remove entirely?
-- **Terminal-block callout (08):** anchored at a representative terminal strip, since "terminals" spans all banks; refine placement during the pin pass if desired.
+- **Terminal-block callout (08):** anchored at the LED-out strip as a representative terminal; nudge if it reads cluttered against callout 04.
 - **Future hardware:** USB-C / bare-RP2040 migration is explicitly *deferred* until the carrier survives real cabinets.
 
 ---
@@ -101,3 +101,4 @@ Opening `index.html` as a **lone file** (double-click, or a single-file preview)
 - **2026-05-25** — Loop reframed to "~1 ms target (to confirm)" + LED-array artifact caveat; clarified it's not the CPU clock.
 - **2026-05-25** — Confirmed via research: LS-32 = microswitch/digital; UltraStik 360 = the all-in-one Hall analog stick this board deliberately undercuts.
 - **2026-05-25** — Inventory rebuilt: 10 blocks rebased to image 3's component set + USB (#10), plain name leading, designator demoted to subtitle, photo placeholder per block printing its own `img/NN-name.png` filename. Figure callouts re-pointed to the same numbers via a stable id↔num split (no hover-logic change). New terminal-block mini-diagram added. Block number shrunk (56→34px); overview copy narrowed by the photo column. USB kept as #10 (reconciles image 3's 9 with Matt's 10-item brief). Pin-exact trace routing deferred to the next pass.
+- **2026-05-25** — FIG.01 pin-exact routing pass: replaced every floating dashed bezier with solid orthogonal polylines that originate on specific Pico pads and terminate on real component pins (shift bus, SPI, analog channels, spinner A/B, PWM→gates, drain→OUT, GND rail, VLED+). Buses labelled by function, never by invented GP numbers. Trace colours limited to the figure's existing palette (ink/blue/verm/gold). Cross-overs (DATA over shift runs, drains over GND rail) are intentional non-joins.

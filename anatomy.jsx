@@ -535,26 +535,68 @@ function Anatomy() {
               SIGNAL / WIRE ROUTING — under everything
               ================================================= */}
           <g style={{ pointerEvents: 'none' }}>
-            {/* digital signal: shift chain → pico (blue) */}
-            <path d="M468 262 C 510 262 510 320 540 320" className="blue hair" strokeWidth="1.25" strokeDasharray="3 3" />
-            {/* MCP3208 → Pico (blue) */}
-            <path d="M476 612 C 510 612 510 520 540 520" className="blue hair" strokeWidth="1.25" strokeDasharray="3 3" />
-            {/* J_ANALOG → MCP3208 */}
-            <line x1="486" y1="664" x2="446" y2="640" className="blue hair" strokeWidth="1" strokeDasharray="2 2" />
-            {/* J_SPIN → Pico (vermilion) */}
-            {[0, 1, 2, 3].map(i => (
-              <path key={i} d={`M240 ${340 + i * 60} C 380 ${340 + i * 60} 460 ${440} 540 440`} className="verm hair" strokeWidth="1" strokeDasharray="2 3" />
-            ))}
-            {/* Pico → MOSFET (gold) */}
-            {Array.from({ length: 5 }).map((_, i) => (
-              <path key={i} d={`M748 ${440 + i * 8} C 800 440 800 540 ${795 + i * 22} 600`} className="gold hair" strokeWidth="1" strokeDasharray="2 2" />
-            ))}
-            {/* MOSFET → J_LED_OUT */}
+
+            {/* ---- DIGITAL SHIFT BUS · 74HC165 -> Pico (3 GPIO) ---- */}
+            <polyline points="297,266 297,300 532,300" className="blue" strokeWidth="1.2" fill="none" />
+            <polyline points="307,266 307,315 532,315" className="blue" strokeWidth="1.2" fill="none" />
+            <polyline points="490,266 490,330 532,330" className="blue" strokeWidth="1.2" fill="none" />
+            <text x="455" y="296" className="lbl-sm fill-only" stroke="none" textAnchor="end" style={{ fontSize: 7 }}>LATCH</text>
+            <text x="455" y="311" className="lbl-sm fill-only" stroke="none" textAnchor="end" style={{ fontSize: 7 }}>CLK</text>
+            <text x="455" y="326" className="lbl-sm fill-only" stroke="none" textAnchor="end" style={{ fontSize: 7 }}>DATA</text>
+
+            {/* ---- SPI BUS · Pico -> MCP3208 ---- */}
+            <polyline points="421,594 421,540 532,540" className="blue" strokeWidth="1.2" fill="none" />
+            <polyline points="428,594 428,555 532,555" className="blue" strokeWidth="1.2" fill="none" />
+            <polyline points="435,594 435,570 532,570" className="blue" strokeWidth="1.2" fill="none" />
+            <polyline points="442,594 442,585 532,585" className="blue" strokeWidth="1.2" fill="none" />
+            <text x="470" y="537" className="lbl-sm fill-only" stroke="none" textAnchor="end" style={{ fontSize: 7 }}>SCK</text>
+            <text x="470" y="552" className="lbl-sm fill-only" stroke="none" textAnchor="end" style={{ fontSize: 7 }}>MOSI</text>
+            <text x="470" y="567" className="lbl-sm fill-only" stroke="none" textAnchor="end" style={{ fontSize: 7 }}>MISO</text>
+            <text x="470" y="582" className="lbl-sm fill-only" stroke="none" textAnchor="end" style={{ fontSize: 7 }}>CS</text>
+
+            {/* ---- ANALOG CHANNELS · J_ANALOG -> MCP3208 (8 ch) ---- */}
+            {Array.from({ length: 8 }).map((_, k) => {
+              const xa = 424.5 + (k + 2) * 13, xm = 421 + k * 7, jy = 650 + k * 4;
+              return <polyline key={k} points={`${xa},684 ${xa},${jy} ${xm},${jy} ${xm},646`} className="blue" strokeWidth=".85" fill="none" />;
+            })}
+            <text x="560" y="690" className="lbl-sm fill-only" stroke="none" style={{ fontSize: 7 }}>A0–A7 → CH0–7</text>
+
+            {/* ---- SPINNER QUADRATURE · J_SPIN A/B -> Pico ---- */}
+            {[
+              [345, 360], [354, 375],
+              [405, 390], [414, 405],
+              [465, 420], [474, 435],
+              [525, 450], [534, 465],
+            ].map(([sy, py], k) => {
+              const cx = 496 + k * 4;
+              return <polyline key={k} points={`240,${sy} ${cx},${sy} ${cx},${py} 532,${py}`} className="verm" strokeWidth="1" fill="none" />;
+            })}
+            <text x="250" y="582" className="lbl-sm fill-only" stroke="none" style={{ fontSize: 7 }}>J_SPIN A/B → GPIO</text>
+
+            {/* ---- PWM · Pico -> MOSFET gates (x10) ---- */}
+            {Array.from({ length: 10 }).map((_, k) => {
+              const py = 300 + k * 15, gx = 797 + k * 22;
+              return <polyline key={k} points={`748,${py} ${gx},${py} ${gx},594`} className="gold" strokeWidth="1" fill="none" />;
+            })}
+            <text x="752" y="294" className="lbl-sm fill-only" stroke="none" style={{ fontSize: 7 }}>PWM ×10 → GATES</text>
+
+            {/* ---- MOSFET drain -> OUTx ---- */}
             {Array.from({ length: 10 }).map((_, i) => (
-              <line key={i} x1={797 + i * 22} y1="626" x2={802 + i * 23} y2="684" className="gold hair" strokeWidth="1" />
+              <polyline key={i} points={`${801 + i * 22},626 ${801 + i * 22},645 ${802 + i * 23},645 ${802 + i * 23},664`} className="gold" strokeWidth="1" fill="none" />
             ))}
-            {/* J_LED_POWER → MOSFET rail */}
-            <path d="M930 276 C 930 400 880 540 880 580" className="gold" strokeWidth="1.5" strokeDasharray="4 3" />
+
+            {/* ---- GND rail · MOSFET source -> PSU GND ---- */}
+            <polyline points="790,636 1006,636" className="ink" strokeWidth="1.2" fill="none" />
+            {Array.from({ length: 10 }).map((_, i) => (
+              <polyline key={i} points={`${793 + i * 22},626 ${793 + i * 22},636`} className="ink" strokeWidth=".85" fill="none" />
+            ))}
+            <polyline points="1006,636 1006,290 896,290 896,268" className="ink" strokeWidth="1" fill="none" />
+            <text x="1012" y="470" className="lbl-sm fill-only" stroke="none" style={{ fontSize: 7 }}>GND</text>
+
+            {/* ---- VLED+ supply (LED anodes are external) ---- */}
+            <polyline points="876,268 876,300" className="gold" strokeWidth="1.5" fill="none" />
+            <text x="876" y="312" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 7 }}>VLED+ → LED (EXT)</text>
+
           </g>
 
           {/* =================================================

@@ -5,26 +5,26 @@
    build sequence, sources.
    ============================================================ */
 
-/* --- §03 CAPACITY — 4-joystick arithmetic ----------------- */
+/* --- §03 DIGITAL VS ANALOG — two stick types + arithmetic - */
 function Capacity() {
   return (
-    <section id="capacity" data-screen-label="03 Capacity">
+    <section id="capacity" data-screen-label="03 Digital vs analog">
       <div className="wrap">
         <div className="folio">
           <span className="num">§ 03</span>
-          <span className="ttl">Can it support up to four joysticks?</span>
-          <span className="meta">Arithmetic · two cases</span>
+          <span className="ttl">Digital vs analog</span>
+          <span className="meta">Two kinds of stick · arithmetic</span>
         </div>
         <hr className="rule" />
 
         <div className="cap-head">
           <div>
-            <span className="eyebrow">§ 03 · 4-joystick capacity</span>
-            <h2 style={{ marginTop: 14 }}>
-              Can it support up to<br/>
-              four joysticks?
-            </h2>
+            <span className="eyebrow">§ 03 · Digital vs analog</span>
+            <h2 style={{ marginTop: 14 }}>Digital vs analog</h2>
           </div>
+          <p className="body" style={{ alignSelf: 'end' }}>
+            &ldquo;Can it run four joysticks?&rdquo; isn&rsquo;t really a count question — it&rsquo;s a question back: digital or analog? The two kinds take completely different paths through the board, and which one a cabinet uses is what decides how much fits.
+          </p>
         </div>
 
         <div className="cap-grid" style={{ marginTop: 36 }}>
@@ -34,12 +34,16 @@ function Capacity() {
             <div className="cap-card-head">
               <span className="callout-num blue" style={{ background: 'var(--teal)' }}>D</span>
               <div>
-                <h3>Four digital joysticks</h3>
+                <h3>Digital sticks &amp; buttons</h3>
               </div>
             </div>
 
             <p className="body" style={{ marginTop: 14 }}>
-              Yes. A digital joystick uses four switch inputs: up, down, left, right. Four digital joysticks consume 16 of the standard 32 digital inputs.
+              A digital joystick is just four switches — up, down, left, right — wired to ground like any button. <strong>4-way and 8-way are the same four switches:</strong> a 4-way stick allows one direction at a time, an 8-way stick lets two adjacent close together so up&nbsp;+&nbsp;right reads as a diagonal. The board never sees a special &ldquo;8-way input&rdquo; — it reads switches, and firmware decides how to combine them.
+            </p>
+
+            <p className="body" style={{ marginTop: 12 }}>
+              So four digital sticks cost 16 of the standard 32 digital inputs:
             </p>
 
             <pre className="loop-pre" style={{ marginTop: 14 }}>
@@ -50,7 +54,7 @@ function Capacity() {
             <DigitalMath />
 
             <p className="body" style={{ marginTop: 14 }}>
-              This leaves room for starts, coins, service buttons, and a modest number of gameplay buttons. For full 4-player cabinets with lots of action buttons, make the 48-input shift-register variant.
+              The spare 16 cover starts, coins, service, and a modest set of action buttons. For a full 4-player cabinet with lots of buttons, build the 48-input shift-register variant.
             </p>
           </div>
 
@@ -59,12 +63,16 @@ function Capacity() {
             <div className="cap-card-head">
               <span className="callout-num" style={{ background: 'var(--green)' }}>A</span>
               <div>
-                <h3>Four Hall-effect joysticks</h3>
+                <h3>Analog sticks</h3>
               </div>
             </div>
 
             <p className="body" style={{ marginTop: 14 }}>
-              Yes, with no spare analog channels. A raw Hall-effect joystick normally needs X and Y voltage outputs, so four analog sticks consume all eight channels of one MCP3208.
+              An analog Hall or pot stick is different <em>in kind</em>: instead of on/off switches it reports continuous X and Y voltages, so it lands on the ADC rather than the shift registers. There is no 4-way/8-way idea here — position is read directly.
+            </p>
+
+            <p className="body" style={{ marginTop: 12 }}>
+              Each stick needs two channels, so four of them fill one MCP3208 exactly:
             </p>
 
             <pre className="loop-pre" style={{ marginTop: 14 }}>
@@ -75,26 +83,12 @@ function Capacity() {
             <AnalogMath />
 
             <p className="body" style={{ marginTop: 14 }}>
-              Place a second MCP3208 footprint on the PCB. Populate it only when a cabinet needs four analog sticks plus pots, sliders, or extra analog controls.
+              Place a second MCP3208 footprint on the PCB; populate it only when a cabinet needs four analog sticks plus pots, sliders, or other analog controls.
             </p>
           </div>
         </div>
 
         <hr className="rule" style={{ marginTop: 48 }} />
-        <div className="cap-card">
-          <div className="cap-card-head">
-            <span className="callout-num" style={{ background: 'var(--teal)' }}>?</span>
-            <div><h3>4-way, 8-way, and analog — what actually differs</h3></div>
-          </div>
-          <p className="body" style={{ marginTop: 14 }}>
-            A digital joystick is just four switches: up, down, left, right. A <strong>4-way</strong> stick mechanically (or logically) allows only one at a time. An <strong>8-way</strong> stick uses the <em>same four switches</em> — diagonals come from letting two adjacent directions close at once, so up&nbsp;+&nbsp;right reads as a diagonal. The board never needs a special &ldquo;8-way input&rdquo;: it reads switches and firmware decides how to interpret them.
-          </p>
-          <p className="body" style={{ marginTop: 12 }}>
-            An <strong>analog</strong> Hall or pot stick is different in kind. It reports continuous X and Y voltages instead of on/off contacts, so it lands on the ADC rather than the shift registers — which is why the two stick types draw from completely separate input budgets.
-          </p>
-        </div>
-
-        <hr className="rule" style={{ marginTop: 32 }} />
         <div className="design-rule">
           <span className="callout-num" style={{ background: 'var(--vermilion)' }}>!</span>
           <p>

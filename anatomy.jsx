@@ -193,19 +193,6 @@ function Anatomy() {
             ))}
           </g>
 
-          {/* Title block — bottom-right */}
-          <g transform="translate(960 770)" className="ink hair">
-            <rect x="0" y="0" width="260" height="80" />
-            <line x1="0" y1="20" x2="260" y2="20" />
-            <line x1="0" y1="50" x2="260" y2="50" />
-            <line x1="130" y1="20" x2="130" y2="80" />
-            <text x="8" y="14" className="lbl fill-only" stroke="none">DRAWING · AIO-PC-001 / 01</text>
-            <text x="8" y="40" className="lbl-sm fill-only" stroke="none">NOT TO SCALE</text>
-            <text x="138" y="40" className="lbl-sm fill-only" stroke="none">DRWN · A.PRINCEPS</text>
-            <text x="8" y="70" className="lbl-sm fill-only" stroke="none">DIAGRAM · SCHEMATIC</text>
-            <text x="138" y="70" className="lbl-sm fill-only" stroke="none">REV · A · 2026</text>
-          </g>
-
           {/* Compass removed — orientation is meaningless on a board diagram */}
 
           {/* Scale bar removed — figure is schematic, not dimensioned */}
@@ -227,9 +214,6 @@ function Anatomy() {
           <text x="640" y="195" className="lbl fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 9 }}>
             ARCADE · I / O · PICO · CARRIER · v0.1
           </text>
-          <text x="640" y="690" className="lbl-sm fill-only" stroke="none" textAnchor="middle">
-            SCHEMATIC LAYOUT · NOT TO SCALE
-          </text>
 
           {/* =================================================
               [01] PICO MODULE — center
@@ -240,7 +224,7 @@ function Anatomy() {
             style={{ cursor: 'pointer' }}
           >
             {/* outline */}
-            <rect x="540" y="280" width="200" height="320" rx="6" className="ink" strokeWidth="1.5" />
+            <rect x="540" y="280" width="200" height="320" rx="6" className="ink solid" strokeWidth="1.5" />
             {/* castellated pins */}
             {Array.from({ length: 20 }).map((_, i) => (
               <g key={'l' + i} className="ink hair">
@@ -299,7 +283,7 @@ function Anatomy() {
           >
             {[0, 1, 2, 3].map(i => (
               <g key={i} transform={`translate(${288 + i * 56} 230)`}>
-                <rect x="0" y="0" width="44" height="32" className="ink" strokeWidth="1.25" />
+                <rect x="0" y="0" width="44" height="32" className="ink solid" strokeWidth="1.25" />
                 {/* pins top */}
                 {Array.from({ length: 8 }).map((_, j) => (
                   <g key={j} className="ink hair">
@@ -337,7 +321,7 @@ function Anatomy() {
             {[0, 1, 2, 3].map(bank => (
               <g key={bank} transform={`translate(${260 + bank * 130} 180)`}>
                 {/* bank divider */}
-                <rect x="0" y="-16" width="120" height="16" className="ink hair" />
+                <rect x="0" y="-16" width="120" height="16" className="ink hair solid" />
                 <text x="60" y="-4" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 8 }}>
                   IN{bank * 8}–{bank * 8 + 7}
                 </text>
@@ -360,7 +344,7 @@ function Anatomy() {
             onMouseEnter={() => set('04')} onClick={() => set('04')}
             style={{ cursor: 'pointer' }}
           >
-            <rect x="416" y="600" width="60" height="40" className="ink" strokeWidth="1.25" />
+            <rect x="416" y="600" width="60" height="40" className="ink solid" strokeWidth="1.25" />
             {Array.from({ length: 8 }).map((_, i) => (
               <g key={i} className="ink hair">
                 <rect x={420 + i * 7} y="640" width="2" height="6" />
@@ -389,7 +373,7 @@ function Anatomy() {
             onMouseEnter={() => set('05')} onClick={() => set('05')}
             style={{ cursor: 'pointer' }}
           >
-            <rect x="416" y="664" width="140" height="20" className="ink hair" />
+            <rect x="416" y="664" width="140" height="20" className="ink hair solid soft" />
             <text x="486" y="678" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 8 }}>
               3V3 · GND · A0 · A1 · A2 · A3 · A4 · A5 · A6 · A7
             </text>
@@ -412,7 +396,7 @@ function Anatomy() {
           >
             {[0, 1, 2, 3].map(i => (
               <g key={i} transform={`translate(240 ${320 + i * 60})`}>
-                <rect x="-32" y="0" width="32" height="40" className="ink hair" />
+                <rect x="-32" y="0" width="32" height="40" className="ink hair solid" />
                 {/* 4 pins per spinner */}
                 {[0, 1, 2, 3].map(p => (
                   <g key={p}>
@@ -444,7 +428,7 @@ function Anatomy() {
             {Array.from({ length: 10 }).map((_, i) => (
               <g key={i} transform={`translate(${790 + i * 22} 600)`}>
                 {/* MOSFET package SOT-23 ish */}
-                <rect x="0" y="0" width="14" height="20" className="ink" strokeWidth="1.1" />
+                <rect x="0" y="0" width="14" height="20" className="ink solid soft" strokeWidth="1.1" />
                 {/* pins */}
                 <line x1="3" y1="20" x2="3" y2="26" className="ink hair" />
                 <line x1="11" y1="20" x2="11" y2="26" className="ink hair" />
@@ -472,7 +456,7 @@ function Anatomy() {
             onMouseEnter={() => set('07')} onClick={() => set('07')}
             style={{ cursor: 'pointer' }}
           >
-            <rect x="790" y="664" width="240" height="20" className="ink hair" />
+            <rect x="790" y="664" width="240" height="20" className="ink hair solid" />
             <text x="910" y="678" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 8 }}>
               OUT0 · OUT1 · OUT2 · ... · OUT9
             </text>
@@ -492,7 +476,7 @@ function Anatomy() {
             onMouseEnter={() => set('08')} onClick={() => set('08')}
             style={{ cursor: 'pointer' }}
           >
-            <rect x="850" y="216" width="160" height="60" className="ink" strokeWidth="1.25" />
+            <rect x="850" y="216" width="160" height="60" className="ink solid" strokeWidth="1.25" />
             <line x1="850" y1="232" x2="1010" y2="232" className="ink hair" />
             <text x="930" y="227" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 9 }}>J_LED_POWER · 5–12 V</text>
             {/* terminal pair */}
@@ -528,7 +512,7 @@ function Anatomy() {
             onMouseEnter={() => set('09')} onClick={() => set('09')}
             style={{ cursor: 'pointer' }}
           >
-            <rect x="600" y="270" width="80" height="18" className="ink" strokeWidth="1.25" />
+            <rect x="600" y="270" width="80" height="18" className="ink solid" strokeWidth="1.25" />
             <text x="640" y="282" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 8 }}>USB · TO HOST</text>
             {/* cable run upward */}
             <line x1="640" y1="270" x2="640" y2="200" className="ink hair" strokeDasharray="3 3" />
@@ -559,10 +543,10 @@ function Anatomy() {
 
             {/* ---- ANALOG CHANNELS · J_ANALOG -> MCP3208 (8 ch) ---- */}
             {Array.from({ length: 8 }).map((_, k) => {
-              const xa = 424.5 + (k + 2) * 13, xm = 421 + k * 7, jy = 650 + k * 4;
-              return <polyline key={k} points={`${xa},684 ${xa},${jy} ${xm},${jy} ${xm},646`} className="blue" strokeWidth=".85" fill="none" />;
+              const xa = 424.5 + (k + 2) * 13, xm = 421 + k * 7, jy = 648 + k * 2;
+              return <polyline key={k} points={`${xa},664 ${xa},${jy} ${xm},${jy} ${xm},646`} className="blue" strokeWidth=".85" fill="none" />;
             })}
-            <text x="560" y="690" className="lbl-sm fill-only" stroke="none" style={{ fontSize: 7 }}>A0–A7 → CH0–7</text>
+            <text x="562" y="660" className="lbl-sm fill-only" stroke="none" style={{ fontSize: 7 }}>A0–A7 → CH0–7</text>
 
             {/* ---- SPINNER QUADRATURE · J_SPIN A/B -> Pico ---- */}
             {[

@@ -272,6 +272,12 @@ svg .blue { stroke: var(--inkblue); fill: none; }
 svg .blue-fill { fill: var(--inkblue); stroke: none; }
 svg .gold { stroke: var(--gold); fill: none; }
 svg .gold-fill { fill: var(--gold); stroke: none; }
+
+/* Backing fill so the active/highlighted block reads cleanly above the diagram.
+   Transparent until its component is active; .soft = lighter where dense wiring runs alongside. */
+svg .solid { fill: var(--paper); fill-opacity: 0; transition: fill-opacity .15s ease; }
+.comp.is-active .solid { fill-opacity: 1; }
+.comp.is-active .solid.soft { fill-opacity: .8; }
 svg .leader { stroke: var(--ink); fill: none; stroke-width: .75; }
 svg .hair { stroke-width: .75; }
 svg .lbl { font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: .04em; fill: var(--ink); text-transform: uppercase; }

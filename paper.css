@@ -630,12 +630,13 @@ section + section { border-top: var(--hair) solid var(--rule); }
   flex: 0 0 200px;
   align-self: flex-start;
   aspect-ratio: 4 / 3;
-  border: var(--hair) dashed var(--rule-quiet);
-  background: var(--paper-2);
+  border: var(--hair) solid var(--rule-soft);
+  border-radius: 4px;
+  background: var(--ink);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  overflow: hidden;
 }
 .ae-d-photo-lbl {
   font: 500 11px/1.5 var(--mono);

@@ -735,9 +735,8 @@ function Anatomy() {
 
             <div className="ae-d-lead">
               <p className="ae-d-body">{activeCallout.body}</p>
-              <div className="ae-d-photo" aria-label={`Photo placeholder: ${activeCallout.photo}`}>
-                {/* Drop the PNG here: <img src={activeCallout.photo} alt={activeCallout.title} style={{width:'100%',height:'100%',objectFit:'contain'}} /> */}
-                <span className="ae-d-photo-lbl">{activeCallout.photo}</span>
+              <div className="ae-d-photo">
+                <img src={activeCallout.photo} alt={activeCallout.title} style={{width:'100%',height:'100%',objectFit:'contain'}} />
               </div>
             </div>
 

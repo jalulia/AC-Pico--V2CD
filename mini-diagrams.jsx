@@ -5,8 +5,9 @@
    Each diagram is its own ~440×220 SVG, drafted plainly.
    ============================================================ */
 
-function MiniDiagram({ n }) {
+function MiniDiagram({ n, d }) {
   const W = 440, H = 220;
+  const key = d || n;
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="mini-diagram" preserveAspectRatio="xMidYMid meet">
       {/* corner registration marks */}
@@ -21,12 +22,46 @@ function MiniDiagram({ n }) {
         FIG. 01.{n}
       </text>
 
-      {Diagrams[n] && Diagrams[n]()}
+      {Diagrams[key] && Diagrams[key]()}
     </svg>
   );
 }
 
 const Diagrams = {
+
+  /* ============ TERM · TERMINAL BLOCKS ============ */
+  'TERM': () => (
+    <g>
+      <text x="220" y="22" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 9 }}>PLUGGABLE TERMINAL BLOCK — 3.5 / 5.08 mm</text>
+      <g transform="translate(120 50)" className="ink" strokeWidth="1.25">
+        {/* board-side base */}
+        <rect x="0" y="64" width="200" height="30" />
+        {/* removable plug */}
+        <rect x="8" y="22" width="184" height="42" />
+        {/* screw terminals + wire entries */}
+        {Array.from({ length: 5 }).map((_, i) => (
+          <g key={i} transform={`translate(${30 + i * 36} 43)`} className="ink hair">
+            <circle cx="0" cy="0" r="8" />
+            <line x1="-4" y1="-4" x2="4" y2="4" />
+            <line x1="-4" y1="4" x2="4" y2="-4" />
+            <line x1="0" y1="-9" x2="0" y2="-21" />
+          </g>
+        ))}
+        {/* through-board pins */}
+        {Array.from({ length: 5 }).map((_, i) => (
+          <line key={i} x1={30 + i * 36} y1="94" x2={30 + i * 36} y2="110" className="ink hair" />
+        ))}
+        {/* pitch dimension between first two pins */}
+        <line x1="30" y1="122" x2="66" y2="122" className="ink hair" />
+        <line x1="30" y1="118" x2="30" y2="126" className="ink hair" />
+        <line x1="66" y1="118" x2="66" y2="126" className="ink hair" />
+        <text x="48" y="136" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 7 }}>PITCH</text>
+      </g>
+      <text x="220" y="206" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 8, fill: 'var(--ink-faint)' }}>
+        Pluggable · used for every external connection
+      </text>
+    </g>
+  ),
 
   /* ============ 01 · PICO H ============ */
   '01': () => (

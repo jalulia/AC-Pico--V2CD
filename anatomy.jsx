@@ -10,109 +10,133 @@ const { useState, useEffect, useRef } = React;
 
 const CALLOUTS = [
   {
-    n: '01', tone: 'verm',
-    title: 'Raspberry Pi Pico H',
+    n: '01', num: '01', tone: 'verm',
     eyebrow: 'Central brain · USB',
-    body: "USB HID and CDC serial run from the Pico. PIO state machines decode quadrature spinners. PWM outputs drive LED brightness. The Pico H pre-soldered headers and debug connector make v0.1 lower-risk than integrating a bare RP2040.",
+    title: 'Microcontroller',
+    part: 'Raspberry Pi Pico H · RP2040',
+    photo: 'img/01-pico-h.png',
+    body: "The central controller: reads every input, drives the LEDs, and talks to the PC over USB. Pre-soldered headers and a debug connector make v0.1 lower-risk than a bare RP2040.",
     spec: [
       ['USB', 'HID + CDC serial'],
       ['Logic', '3.3V · PIO · PWM'],
-      ['Migration', 'Bare RP2040 only after pinout/protocol stabilise']
+      ['Core', 'Dual Cortex-M0+ · 133 MHz']
     ]
   },
   {
-    n: '02', tone: 'blue',
-    title: 'U1–U4 · 74HC165',
-    eyebrow: 'Digital input expander',
-    body: "Parallel-in / serial-out shift registers chained four-deep. The Pico spends only three GPIO lines to read 32 independent switch inputs. No matrix means no ghosting; every cabinet combo is readable.",
+    n: '02', num: '02', tone: 'blue',
+    eyebrow: 'Switch reader · 3 GPIO',
+    title: 'Digital input expander',
+    part: '74HC165 shift register · ×4',
+    photo: 'img/02-74hc165.png',
+    body: "Parallel-in / serial-out shift registers chained four deep. Reads 32 switch inputs over just three Pico GPIO. No matrix, so no ghosting.",
     spec: [
-      ['Pico lines', 'DATA · CLOCK · LATCH/LOAD'],
-      ['Capacity', '8 inputs per chip · ×4 = 32 inputs'],
-      ['Expansion', '+2 chips → 48-input variant'],
-      ['Why', 'No ghosting; easy to scan every millisecond']
+      ['Pico lines', 'DATA · CLOCK · LATCH'],
+      ['Capacity', '8 per chip · ×4 = 32'],
+      ['Expansion', '+2 chips → 48 inputs']
     ]
   },
   {
-    n: '03', tone: 'blue',
-    title: 'J_DIGITAL · Switch input bank',
-    eyebrow: 'Cabinet switch wiring',
-    body: "32 inputs standard, in 4× 8-position groups. Buttons, digital joystick directions, coin/start/service/admin inputs — all wire as normally-open contacts to ground. Pull-ups live on the carrier.",
-    spec: [
-      ['Signal', 'IN0–IN31'],
-      ['Electrical', 'Input pulled up to 3.3V; switch shorts to GND'],
-      ['Firmware', 'Per-input debounce, optional shift/admin mapping']
-    ]
-  },
-  {
-    n: '04', tone: 'green',
-    title: 'U5 · MCP3208',
-    eyebrow: 'Analog conversion',
-    body: "8-channel 12-bit SPI ADC. Gives the design enough analog channels for four Hall-effect joysticks, or a mix of sticks, levers, pots, and sliders. A second footprint is laid for analog-heavy cabinets but normally unpopulated.",
+    n: '04', num: '03', tone: 'green',
+    eyebrow: 'Voltage to digital',
+    title: 'Analog input ADC',
+    part: 'MCP3208 · 12-bit SPI',
+    photo: 'img/03-mcp3208.png',
+    body: "8-channel 12-bit SPI ADC. Enough analog channels for four Hall-effect joysticks, or a mix of sticks, levers, pots and sliders. A second footprint is laid for analog-heavy cabinets.",
     spec: [
       ['Bus', 'SPI MOSI · MISO · SCK · CS'],
       ['Resolution', '12-bit · 8 channels'],
-      ['Default', 'One populated MCP3208'],
-      ['Optional', 'Second MCP3208 footprint → 16 channels']
+      ['Optional', '2nd MCP3208 means 16 channels']
     ]
   },
   {
-    n: '05', tone: 'green',
-    title: 'J_ANALOG · Hall / pot inputs',
-    eyebrow: 'Analog terminal bank',
-    body: "Raw analog controls feed straight into the ADC. Firmware handles calibration, center, deadzone, smoothing, inversion, and HID axis scaling — so the carrier accepts Hall sticks, levers, pots and sliders without an integrated joystick board.",
+    n: '07', num: '04', tone: 'gold',
+    eyebrow: 'Low-side · PWM',
+    title: 'LED drivers',
+    part: 'Logic-level N-MOSFET · ×10',
+    photo: 'img/04-mosfet.png',
+    body: "Discrete low-side N-MOSFETs feed ten OUT0-OUT9 terminals. The load sits between VLED+ and OUTx; the board switches the ground side under PWM control.",
     spec: [
-      ['Signal', '3V3 · GND · A0–A7'],
-      ['Four Hall sticks', 'X/Y × 4 = all 8 channels'],
-      ['Preferred', '0–3.3V analog output'],
-      ['5V Hall modules', 'Use divider/protection; calibrate min/max']
-    ]
-  },
-  {
-    n: '06', tone: 'verm',
-    title: 'J_SPIN · Quadrature spinners',
-    eyebrow: 'Rotary signal',
-    body: "Spinners feed the Pico directly as A/B quadrature signals. Firmware can emit mouse X/Y movement (existing arcade convention) or signed deltas for Unity-specific behaviour.",
-    spec: [
-      ['Pinout', '+5V · GND · A · B per spinner'],
-      ['Typical use', 'SpinTrak mapped to left/right mouse movement'],
-      ['Protection', 'Make A/B 3.3V-safe before Pico GPIO'],
-      ['Firmware', 'PIO or interrupt quadrature decoder']
-    ]
-  },
-  {
-    n: '07', tone: 'gold',
-    title: 'Q1–Q10 · LED sinks',
-    eyebrow: 'Cabinet feedback',
-    body: "Discrete logic-level N-MOSFETs feed ten OUT0–OUT9 terminals. For this cabinet count, simpler than a dedicated LED driver. The load connects between VLED+ and OUTx; the board switches the ground side under PWM control.",
-    spec: [
-      ['Outputs', 'OUT0–OUT9'],
+      ['Outputs', 'OUT0-OUT9'],
       ['Control', 'PWM brightness per channel'],
-      ['Load', 'LEDs / cabinet lamps with appropriate current limiting'],
-      ['Caution', 'Add flyback protection before driving relays/solenoids']
+      ['Caution', 'Add flyback for relays/solenoids']
     ]
   },
   {
-    n: '08', tone: 'gold',
-    title: 'J_LED_POWER',
-    eyebrow: 'Power domains',
-    body: "USB powers the logic only. LED / lamp current comes from an external 5V or 12V supply through a fuse/polyfuse and reverse-protection path. Grounds are tied on the board at the star point.",
+    n: '06', num: '05', tone: 'verm',
+    eyebrow: 'Rotary · quadrature',
+    title: 'Spinner',
+    part: 'Ultimarc SpinTrak (or any quadrature)',
+    photo: 'img/05-spinner.png',
+    body: "Spinners feed the Pico directly as A/B quadrature. Firmware emits mouse X/Y movement (the arcade convention) or signed deltas for Unity.",
     spec: [
-      ['Logic', 'USB → Pico → 3.3V logic'],
-      ['LEDs', 'External VLED+ and GND'],
-      ['Protection', 'Fuse/polyfuse, reverse protection, bulk cap'],
-      ['Layout', 'Keep LED current away from ADC ground paths']
+      ['Pinout', '+5V · GND · A · B'],
+      ['Mapping', 'Mouse left/right movement'],
+      ['Protection', 'Make A/B 3.3V-safe']
     ]
   },
   {
-    n: '09', tone: 'ink',
-    title: 'USB · to PC / Unity host',
+    n: '05', num: '06', tone: 'green',
+    eyebrow: 'Continuous X / Y',
+    title: 'Hall-effect analog joystick',
+    part: 'Generic Hall module · 5-pin',
+    photo: 'img/06-hall-joystick.png',
+    body: "A magnet over Hall sensors outputs continuous X and Y voltages: two ADC channels per stick. Firmware handles calibration, centering, deadzone and scaling. (The Seimitsu LS-32 is a microswitch stick and belongs with the buttons, not here.)",
+    spec: [
+      ['Signal', 'PWR · GND · X · Y · (button)'],
+      ['Channels', '2 per stick into MCP3208'],
+      ['Range', 'Prefer 0-3.3V']
+    ]
+  },
+  {
+    n: '03', num: '07', tone: 'blue',
+    eyebrow: 'Switch to ground',
+    title: 'Arcade buttons & switches',
+    part: 'NO switches · incl. Seimitsu LS-32',
+    photo: 'img/07-buttons.png',
+    body: "Buttons, digital joystick directions (including microswitch sticks like the LS-32), and coin/start/service inputs all wire as normally-open contacts to ground. Pull-ups live on the board.",
+    spec: [
+      ['Electrical', 'Short to GND · on-board pull-up'],
+      ['Read via', '74HC165'],
+      ['Use', 'coin · start · service · admin']
+    ]
+  },
+  {
+    n: 'TERM', num: '08', tone: 'ink',
+    eyebrow: 'Field wiring',
+    title: 'Terminal blocks / connectors',
+    part: 'Pluggable · 3.5 / 5.08 mm',
+    photo: 'img/08-terminals.png',
+    body: "Pluggable screw or push terminals used for every external connection. They cost more than bare headers but make cabinet installs and debugging far less painful. Keep silkscreen labels large.",
+    spec: [
+      ['Pitch', '3.5 mm / 5.08 mm'],
+      ['Style', 'Pluggable for easy wiring'],
+      ['Use', 'All external connections']
+    ]
+  },
+  {
+    n: '08', num: '09', tone: 'gold',
+    eyebrow: 'External 5-12 V',
+    title: 'Power input',
+    part: 'DC barrel · 5.5x2.1 mm',
+    photo: 'img/09-power.png',
+    body: "USB powers the logic only. LED and lamp current comes from an external 5V or 12V supply through a fuse/polyfuse and reverse protection. Grounds tie at the star point.",
+    spec: [
+      ['Input', '5V / 12V DC'],
+      ['Protection', 'Fuse/polyfuse · reverse · bulk cap'],
+      ['Layout', 'Keep LED current off ADC ground']
+    ]
+  },
+  {
+    n: '09', num: '10', tone: 'ink',
     eyebrow: 'Host connection',
-    body: "The board is useful even before a Unity integration exists. Inputs appear as standard HID devices and LED commands ride a CDC serial text protocol until the vendor HID output protocol is mature.",
+    title: 'USB to PC / Unity host',
+    part: 'Pico micro-USB (USB-C later)',
+    photo: 'img/10-usb.png',
+    body: "Inputs appear as standard HID; LED commands ride a CDC serial text protocol until the vendor HID output protocol matures. Useful even before any Unity integration exists.",
     spec: [
-      ['Inputs', 'HID gamepad + HID mouse'],
-      ['LED commands', 'CDC serial text protocol'],
-      ['Unity', 'Input System for HID; SerialPort for v0.1 LED control'],
-      ['Future', 'Vendor HID output reports can replace serial later']
+      ['Inputs', 'HID gamepad + mouse'],
+      ['LED commands', 'CDC serial text'],
+      ['Unity', 'Input System; SerialPort for v0.1']
     ]
   }
 ];
@@ -134,6 +158,7 @@ function Anatomy() {
   const isDim = (n) => active && active !== n;
 
   const activeCallout = CALLOUTS.find(c => c.n === active) || CALLOUTS[0];
+  const numFor = Object.fromEntries(CALLOUTS.map(c => [c.n, c.num]));
 
   return (
     <div>
@@ -547,6 +572,7 @@ function Anatomy() {
             ['07', 'ink', 870, 612, 1100, 612, 1130, 612],
             ['08', 'ink', 930, 216, 1100, 180, 1140, 150],
             ['09', 'ink', 640, 270, 640, 130, 640, 100],
+            ['TERM', 'ink', 910, 700, 910, 800, 910, 832],
           ].map(([n, tone, x1, y1, x2, y2, x3, y3]) => (
             <g
               key={n}
@@ -573,7 +599,7 @@ function Anatomy() {
                 textAnchor="middle"
                 style={{ fontSize: 10, letterSpacing: 0 }}
               >
-                {n}
+                {numFor[n] || n}
               </text>
             </g>
           ))}
@@ -592,7 +618,7 @@ function Anatomy() {
       <div className="anatomy-explorer">
         <div className="ae-head">
           <span className="mono-xs"><span style={{ color: 'var(--vermilion)' }}>/</span>Inventory<span style={{ color: 'var(--ink-faint)' }}>({CALLOUTS.length})</span></span>
-          <span className="mono-xs" style={{ color: 'var(--ink-faint)' }}>Select a block · 01 → 11</span>
+          <span className="mono-xs" style={{ color: 'var(--ink-faint)' }}>Select a block · 01 → 10</span>
         </div>
         <div className="ae-split">
 
@@ -605,7 +631,7 @@ function Anatomy() {
                 onClick={() => set(c.n)}
                 onMouseEnter={() => set(c.n)}
               >
-                <span className="ae-tab-n">{c.n}</span>
+                <span className="ae-tab-n">{c.num}</span>
                 <span className="ae-tab-body">
                   <span className="ae-tab-title">{c.title}</span>
                   <span className="ae-tab-eyebrow">
@@ -639,19 +665,26 @@ function Anatomy() {
                   <span className="mono-xs" style={{ color: 'var(--ink-faint)' }}>{activeCallout.eyebrow}</span>
                 </div>
                 <h3 className="ae-d-title">{activeCallout.title}</h3>
+                <div className="ae-d-part">{activeCallout.part}</div>
               </div>
               <div className="ae-d-num">
                 <span className="mono-xs" style={{ color: 'var(--ink-faint)' }}>BLOCK</span>
-                <span className="ae-d-n">{activeCallout.n}</span>
+                <span className="ae-d-n">{activeCallout.num}</span>
               </div>
             </header>
 
-            <p className="ae-d-body">{activeCallout.body}</p>
+            <div className="ae-d-lead">
+              <p className="ae-d-body">{activeCallout.body}</p>
+              <div className="ae-d-photo" aria-label={`Photo placeholder: ${activeCallout.photo}`}>
+                {/* Drop the PNG here: <img src={activeCallout.photo} alt={activeCallout.title} style={{width:'100%',height:'100%',objectFit:'contain'}} /> */}
+                <span className="ae-d-photo-lbl">{activeCallout.photo}</span>
+              </div>
+            </div>
 
             {/* Mini isolated diagram */}
             <div className="ae-d-fig">
               <div className="ae-d-fig-frame">
-                {window.MiniDiagram && <window.MiniDiagram n={activeCallout.n} />}
+                {window.MiniDiagram && <window.MiniDiagram n={activeCallout.num} d={activeCallout.n} />}
               </div>
             </div>
 
@@ -668,7 +701,7 @@ function Anatomy() {
 
             <footer className="ae-d-foot">
               <span className="mono-xs" style={{ color: 'var(--ink-faint)' }}>
-                {activeCallout.n} / {CALLOUTS.length}
+                {activeCallout.num} / {CALLOUTS.length}
               </span>
               <div className="ae-d-nav">
                 <button onClick={() => {

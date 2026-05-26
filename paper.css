@@ -672,15 +672,20 @@ section + section { border-top: var(--hair) solid var(--rule); }
   padding: 14px 0 8px;
 }
 .ae-d-fig-frame {
-  background: var(--yellow-soft);
+  background: #f4f4f4;
   border: var(--hair) solid var(--rule-soft);
   padding: 4px;
+  max-width: 85%;
+  margin: 0 auto;
 }
 .mini-diagram {
   width: 100%;
   height: auto;
   display: block;
 }
+svg.mini-diagram .ink { stroke-width: .5; }
+svg.mini-diagram .hair { stroke-width: .35; }
+svg.mini-diagram .leader { stroke-width: .5; }
 .ae-d-foot {
   display: flex;
   justify-content: space-between;

@@ -11,7 +11,7 @@ function MiniDiagram({ n, d }) {
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="mini-diagram" preserveAspectRatio="xMidYMid meet">
       {/* corner registration marks */}
-      <g className="ink hair" opacity=".55">
+      <g className="ink hair" opacity=".35">
         <path d="M8 8 L8 18 M8 8 L18 8" />
         <path d={`M${W - 8} 8 L${W - 8} 18 M${W - 8} 8 L${W - 18} 8`} />
         <path d={`M8 ${H - 8} L8 ${H - 18} M8 ${H - 8} L18 ${H - 8}`} />
@@ -33,7 +33,7 @@ const Diagrams = {
   'TERM': () => (
     <g>
       <text x="220" y="22" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 9 }}>PLUGGABLE TERMINAL BLOCK — 3.5 / 5.08 mm</text>
-      <g transform="translate(120 50)" className="ink" strokeWidth="1.25">
+      <g transform="translate(120 50)" className="ink" strokeWidth=".85">
         {/* board-side base */}
         <rect x="0" y="64" width="200" height="30" style={{ fill: 'var(--paper)' }} />
         {/* removable plug */}
@@ -68,12 +68,12 @@ const Diagrams = {
     <g>
       <text x="220" y="22" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 9 }}>RASPBERRY PI PICO H</text>
       {/* module body */}
-      <rect x="120" y="44" width="200" height="148" rx="6" className="ink" strokeWidth="1.25" style={{ fill: 'var(--paper)' }} />
+      <rect x="120" y="44" width="200" height="148" rx="6" className="ink" strokeWidth=".85" style={{ fill: 'var(--paper)' }} />
       {/* USB at top */}
       <rect x="195" y="36" width="50" height="10" className="ink hair" />
       <text x="220" y="32" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 8 }}>USB</text>
       {/* RP2040 */}
-      <rect x="170" y="76" width="100" height="60" className="ink" strokeWidth="1.25" style={{ fill: 'var(--paper)' }} />
+      <rect x="170" y="76" width="100" height="60" className="ink" strokeWidth=".85" style={{ fill: 'var(--paper)' }} />
       <line x1="170" y1="86" x2="270" y2="86" className="ink hair" />
       <text x="220" y="100" className="lbl fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 12 }}>RP2040</text>
       <text x="220" y="120" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 8 }}>CORTEX-M0+ · 133 MHz</text>
@@ -117,12 +117,12 @@ const Diagrams = {
       <text x="220" y="22" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 9 }}>4× 74HC165 — PARALLEL-IN / SERIAL-OUT</text>
       {[0, 1, 2, 3].map(i => (
         <g key={i} transform={`translate(${44 + i * 92} 70)`}>
-          <rect x="0" y="0" width="60" height="64" className="ink" strokeWidth="1.25" style={{ fill: 'var(--paper)' }} />
+          <rect x="0" y="0" width="60" height="64" className="ink" strokeWidth=".85" style={{ fill: 'var(--paper)' }} />
           {/* parallel inputs on top */}
           {Array.from({ length: 8 }).map((_, j) => (
             <g key={j} className="ink hair">
               <line x1={4 + j * 7} y1="0" x2={4 + j * 7} y2="-12" />
-              <circle cx={4 + j * 7} cy="-16" r="1.5" className="ink-fill fill-only" stroke="none" />
+              <circle cx={4 + j * 7} cy="-16" r="1.5" className="blue-fill fill-only" stroke="none" />
             </g>
           ))}
           {/* chip name */}
@@ -133,7 +133,7 @@ const Diagrams = {
           {i < 3 && (
             <g className="ink hair">
               <line x1="60" y1="32" x2="92" y2="32" strokeDasharray="2 2" />
-              <polygon points="92,32 86,29 86,35" className="ink-fill fill-only" stroke="none" />
+              <polygon points="92,32 86,29 86,35" className="blue-fill fill-only" stroke="none" />
             </g>
           )}
         </g>
@@ -168,7 +168,7 @@ const Diagrams = {
           {Array.from({ length: 8 }).map((_, i) => (
             <g key={i}>
               <rect x={3 + i * 9.5} y="20" width="6" height="10" className="ink hair" />
-              <circle cx={6 + i * 9.5} cy="25" r="1" className="ink-fill fill-only" stroke="none" />
+              <circle cx={6 + i * 9.5} cy="25" r="1" className="blue-fill fill-only" stroke="none" />
             </g>
           ))}
         </g>
@@ -187,7 +187,7 @@ const Diagrams = {
           <line x1="0" y1="26" x2="0" y2="36" />
         </g>
         {/* INx node */}
-        <circle cx="60" cy="56" r="2" className="ink-fill fill-only" stroke="none" />
+        <circle cx="60" cy="56" r="2" className="blue-fill fill-only" stroke="none" />
         <text x="72" y="60" className="lbl-sm fill-only" stroke="none" style={{ fontSize: 8 }}>INx → 74HC165</text>
         {/* switch */}
         <g transform="translate(60 56)" className="ink hair">
@@ -212,9 +212,9 @@ const Diagrams = {
     <g>
       <text x="220" y="22" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 9 }}>MCP3208 — 8-CHANNEL 12-BIT SPI ADC</text>
       {/* SOIC body */}
-      <rect x="140" y="60" width="160" height="100" className="ink" strokeWidth="1.25" style={{ fill: 'var(--paper)' }} />
+      <rect x="140" y="60" width="160" height="100" className="ink" strokeWidth=".85" style={{ fill: 'var(--paper)' }} />
       {/* dot indicator */}
-      <circle cx="148" cy="68" r="2" className="ink-fill fill-only" stroke="none" />
+      <circle cx="148" cy="68" r="2" style={{ fill: 'var(--green)' }} className="fill-only" stroke="none" />
       <text x="220" y="115" className="lbl fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 12 }}>MCP3208</text>
       <text x="220" y="130" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 8 }}>U5 · 12-BIT</text>
       {/* left pins (A0-A7) */}
@@ -245,7 +245,7 @@ const Diagrams = {
     <g>
       <text x="220" y="22" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 9 }}>J_ANALOG — HALL / POT TERMINAL BANK</text>
       {/* terminal */}
-      <rect x="40" y="56" width="360" height="40" className="ink" strokeWidth="1.25" style={{ fill: 'var(--paper)' }} />
+      <rect x="40" y="56" width="360" height="40" className="ink" strokeWidth=".85" style={{ fill: 'var(--paper)' }} />
       <line x1="40" y1="74" x2="400" y2="74" className="ink hair" />
       {['3V3', 'GND', 'A0', 'A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7'].map((p, i) => {
         const cx = 60 + i * 36;
@@ -288,7 +288,7 @@ const Diagrams = {
       <text x="220" y="22" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 9 }}>J_SPIN — QUADRATURE A / B</text>
       {/* terminal */}
       <g transform="translate(38 50)" className="ink">
-        <rect x="0" y="0" width="80" height="40" strokeWidth="1.25" style={{ fill: 'var(--paper)' }} />
+        <rect x="0" y="0" width="80" height="40" strokeWidth=".85" style={{ fill: 'var(--paper)' }} />
         {['+5V', 'GND', 'A', 'B'].map((p, i) => (
           <g key={i}>
             <line x1={10 + i * 20} y1="40" x2={10 + i * 20} y2="48" className="hair" />
@@ -299,8 +299,8 @@ const Diagrams = {
       </g>
       {/* spinner wheel */}
       <g transform="translate(180 70)" className="ink">
-        <circle cx="0" cy="0" r="34" strokeWidth="1.25" />
-        <circle cx="0" cy="0" r="4" className="ink-fill fill-only" stroke="none" />
+        <circle cx="0" cy="0" r="34" strokeWidth=".85" />
+        <circle cx="0" cy="0" r="4" className="verm-fill fill-only" stroke="none" />
         {/* tick marks around */}
         {Array.from({ length: 24 }).map((_, i) => {
           const a = (i * Math.PI * 2) / 24;
@@ -316,10 +316,10 @@ const Diagrams = {
       <g transform="translate(260 50)">
         <text x="0" y="0" className="lbl-sm fill-only" stroke="none" style={{ fontSize: 8 }}>A / B QUADRATURE</text>
         {/* A line */}
-        <path d="M 0 18 L 12 18 L 12 6 L 36 6 L 36 18 L 60 18 L 60 6 L 84 6 L 84 18 L 108 18 L 108 6 L 132 6 L 132 18 L 140 18" className="ink" strokeWidth="1.25" />
+        <path d="M 0 18 L 12 18 L 12 6 L 36 6 L 36 18 L 60 18 L 60 6 L 84 6 L 84 18 L 108 18 L 108 6 L 132 6 L 132 18 L 140 18" className="verm" strokeWidth=".85" />
         <text x="-2" y="14" className="lbl-sm fill-only" stroke="none" textAnchor="end" style={{ fontSize: 7 }}>A</text>
         {/* B line, 90° offset */}
-        <path d="M 0 46 L 24 46 L 24 34 L 48 34 L 48 46 L 72 46 L 72 34 L 96 34 L 96 46 L 120 46 L 120 34 L 140 34" className="ink" strokeWidth="1.25" />
+        <path d="M 0 46 L 24 46 L 24 34 L 48 34 L 48 46 L 72 46 L 72 34 L 96 34 L 96 46 L 120 46 L 120 34 L 140 34" className="blue" strokeWidth=".85" />
         <text x="-2" y="42" className="lbl-sm fill-only" stroke="none" textAnchor="end" style={{ fontSize: 7 }}>B</text>
         <text x="0" y="64" className="lbl-sm fill-only" stroke="none" style={{ fontSize: 7, fill: 'var(--ink-faint)' }}>A LEADS B → CW</text>
       </g>
@@ -334,18 +334,18 @@ const Diagrams = {
     <g>
       <text x="220" y="22" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 9 }}>Q1–Q10 · N-MOSFET SINK · OUT0–OUT9</text>
       {/* schematic — one channel */}
-      <g transform="translate(120 56)" className="ink" strokeWidth="1.25">
+      <g transform="translate(120 56)" className="ink" strokeWidth=".85">
         {/* VLED+ */}
         <line x1="0" y1="0" x2="240" y2="0" />
         <text x="-4" y="4" className="lbl-sm fill-only" stroke="none" textAnchor="end" style={{ fontSize: 8 }}>VLED+</text>
         {/* LED */}
         <line x1="80" y1="0" x2="80" y2="24" />
-        <polygon points="74,24 86,24 80,40" className="ink-fill fill-only" stroke="none" />
+        <polygon points="74,24 86,24 80,40" className="gold-fill fill-only" stroke="none" />
         <line x1="74" y1="40" x2="86" y2="40" />
         <line x1="80" y1="40" x2="80" y2="56" />
         <text x="92" y="36" className="lbl-sm fill-only" stroke="none" style={{ fontSize: 7 }}>LED</text>
         {/* OUTx node */}
-        <circle cx="80" cy="56" r="2.5" className="ink-fill fill-only" stroke="none" />
+        <circle cx="80" cy="56" r="2.5" className="gold-fill fill-only" stroke="none" />
         <text x="92" y="60" className="lbl-sm fill-only" stroke="none" style={{ fontSize: 8 }}>OUTx</text>
         {/* MOSFET symbol */}
         <line x1="80" y1="56" x2="80" y2="68" />
@@ -380,7 +380,7 @@ const Diagrams = {
       <text x="220" y="22" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 9 }}>J_LED_POWER — EXTERNAL 5–12 V SUPPLY</text>
       {/* terminal */}
       <g transform="translate(48 50)" className="ink">
-        <rect x="0" y="0" width="84" height="40" strokeWidth="1.25" style={{ fill: 'var(--paper)' }} />
+        <rect x="0" y="0" width="84" height="40" strokeWidth=".85" style={{ fill: 'var(--paper)' }} />
         {['VLED+', 'GND'].map((p, i) => (
           <g key={i}>
             <line x1={20 + i * 44} y1="40" x2={20 + i * 44} y2="50" className="hair" />
@@ -390,7 +390,7 @@ const Diagrams = {
         ))}
       </g>
       {/* protection chain */}
-      <g transform="translate(170 70)" className="ink" strokeWidth="1.25">
+      <g transform="translate(170 70)" className="ink" strokeWidth=".85">
         <line x1="0" y1="0" x2="20" y2="0" />
         {/* fuse */}
         <rect x="20" y="-6" width="36" height="12" />
@@ -407,7 +407,7 @@ const Diagrams = {
         <text x="124" y="-16" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 7 }}>BULK</text>
         <line x1="128" y1="0" x2="160" y2="0" />
         {/* node */}
-        <circle cx="160" cy="0" r="2.5" className="ink-fill fill-only" stroke="none" />
+        <circle cx="160" cy="0" r="2.5" className="gold-fill fill-only" stroke="none" />
         <text x="166" y="4" className="lbl-sm fill-only" stroke="none" style={{ fontSize: 8 }}>→ LED RAIL</text>
       </g>
       <text x="220" y="160" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 8 }}>
@@ -425,19 +425,19 @@ const Diagrams = {
       <text x="220" y="22" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 9 }}>USB — HOST LINK (HID + CDC SERIAL)</text>
       {/* USB-A receptacle */}
       <g transform="translate(80 60)" className="ink">
-        <rect x="0" y="0" width="120" height="40" rx="3" strokeWidth="1.25" style={{ fill: 'var(--paper)' }} />
+        <rect x="0" y="0" width="120" height="40" rx="3" strokeWidth=".85" style={{ fill: 'var(--paper)' }} />
         <rect x="14" y="10" width="92" height="20" className="hair" />
         <line x1="40" y1="10" x2="40" y2="30" className="hair" />
         <text x="60" y="56" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 8 }}>PICO MICRO-USB</text>
       </g>
       {/* cable */}
       <g className="ink hair">
-        <path d="M 200 80 C 240 80 240 110 280 110" strokeDasharray="4 3" />
+        <path d="M 200 80 C 240 80 240 110 280 110" strokeDasharray="4 3" className="blue" />
         <text x="240" y="76" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 7 }}>USB 2.0</text>
       </g>
       {/* host PC */}
       <g transform="translate(280 86)" className="ink">
-        <rect x="0" y="0" width="100" height="50" strokeWidth="1.25" style={{ fill: 'var(--paper)' }} />
+        <rect x="0" y="0" width="100" height="50" strokeWidth=".85" style={{ fill: 'var(--paper)' }} />
         <line x1="0" y1="14" x2="100" y2="14" className="hair" />
         <text x="50" y="11" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 8 }}>GAME PC / UNITY</text>
         <text x="50" y="28" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 7 }}>HID gamepad</text>

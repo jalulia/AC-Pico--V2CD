@@ -13,7 +13,7 @@ function Capacity() {
         <div className="folio">
           <span className="num">§ 03</span>
           <span className="ttl">Digital vs analog</span>
-          <span className="meta">Two kinds of stick · arithmetic</span>
+          <span className="meta">Two input families · capacity</span>
         </div>
         <hr className="rule" />
 
@@ -23,7 +23,7 @@ function Capacity() {
             <h2 style={{ marginTop: 14 }}>Digital vs analog</h2>
           </div>
           <p className="body" style={{ alignSelf: 'end' }}>
-            &ldquo;Can it run four joysticks?&rdquo; isn&rsquo;t really a count question — it&rsquo;s a question back: digital or analog? The two kinds take completely different paths through the board, and which one a cabinet uses is what decides how much fits.
+            Digital and analog are two different input families, not two versions of the same thing. Each takes a separate path through the board — digital inputs through the shift registers, analog inputs through the ADC — and a cabinet&rsquo;s mix of the two determines how much fits.
           </p>
         </div>
 
@@ -34,16 +34,19 @@ function Capacity() {
             <div className="cap-card-head">
               <span className="callout-num blue" style={{ background: 'var(--teal)' }}>D</span>
               <div>
-                <h3>Digital sticks &amp; buttons</h3>
+                <h3>Digital inputs</h3>
               </div>
             </div>
 
             <p className="body" style={{ marginTop: 14 }}>
-              A digital joystick is just four switches — up, down, left, right — wired to ground like any button. <strong>4-way and 8-way are the same four switches:</strong> a 4-way stick allows one direction at a time, an 8-way stick lets two adjacent close together so up&nbsp;+&nbsp;right reads as a diagonal. The board never sees a special &ldquo;8-way input&rdquo; — it reads switches, and firmware decides how to combine them.
+              Digital inputs are on/off switch closures — buttons, digital joystick directions, and coin, start, service, and admin lines. Each shorts an input to ground, and the board reads them through the 74HC165 shift registers. The standard build has 32 digital inputs.
+            </p>
+            <p className="body" style={{ marginTop: 12 }}>
+              A digital joystick uses four of them — up, down, left, right. <strong>4-way and 8-way sticks use the same four switches:</strong> an 8-way stick allows two adjacent directions to close at once, so up&nbsp;+&nbsp;right reads as a diagonal. There is no separate 8-way input.
             </p>
 
             <p className="body" style={{ marginTop: 12 }}>
-              So four digital sticks cost 16 of the standard 32 digital inputs:
+              Four digital joysticks use 16 of the 32 inputs:
             </p>
 
             <pre className="loop-pre" style={{ marginTop: 14 }}>
@@ -54,7 +57,7 @@ function Capacity() {
             <DigitalMath />
 
             <p className="body" style={{ marginTop: 14 }}>
-              The spare 16 cover starts, coins, service, and a modest set of action buttons. For a full 4-player cabinet with lots of buttons, build the 48-input shift-register variant.
+              The remaining 16 inputs cover start, coin, service, and action buttons. A full four-player cabinet with a large button count can expand the digital side with two more 74HC165s, for 48 inputs.
             </p>
           </div>
 
@@ -63,16 +66,16 @@ function Capacity() {
             <div className="cap-card-head">
               <span className="callout-num" style={{ background: 'var(--green)' }}>A</span>
               <div>
-                <h3>Analog sticks</h3>
+                <h3>Analog inputs</h3>
               </div>
             </div>
 
             <p className="body" style={{ marginTop: 14 }}>
-              An analog Hall or pot stick is different <em>in kind</em>: instead of on/off switches it reports continuous X and Y voltages, so it lands on the ADC rather than the shift registers. There is no 4-way/8-way idea here — position is read directly.
+              Analog inputs are voltage axes — Hall-effect joysticks, potentiometers, sliders, and analog levers. Instead of shorting to ground, they output a changing voltage, which the MCP3208 ADC converts. The standard build has 8 analog channels.
             </p>
 
             <p className="body" style={{ marginTop: 12 }}>
-              Each stick needs two channels, so four of them fill one MCP3208 exactly:
+              A Hall-effect joystick uses two channels — X and Y — so four of them fill one MCP3208:
             </p>
 
             <pre className="loop-pre" style={{ marginTop: 14 }}>
@@ -83,7 +86,7 @@ function Capacity() {
             <AnalogMath />
 
             <p className="body" style={{ marginTop: 14 }}>
-              Place a second MCP3208 footprint on the PCB; populate it only when a cabinet needs four analog sticks plus pots, sliders, or other analog controls.
+              For four analog sticks plus pots, sliders, or other analog controls, the board carries a second MCP3208 footprint, bringing it to 16 channels.
             </p>
           </div>
         </div>
@@ -92,7 +95,7 @@ function Capacity() {
         <div className="design-rule">
           <span className="callout-num" style={{ background: 'var(--vermilion)' }}>!</span>
           <p>
-            <strong>Design rule:</strong> because digital and analog draw on separate budgets — shift registers vs. the ADC — four of either type fits, and you can even mix both at standard config. What you can&rsquo;t do is max digital <em>and</em> max analog <em>and</em> a full button complement at once without moving to the 48-input or dual-ADC population. Treat 32D/8A, 32D/16A, and 48D/8A as variants of one PCB.
+            <strong>Design rule:</strong> digital and analog draw on separate budgets — the shift registers and the ADC — so they are best treated as population options on one PCB. The same board can be assembled as 32D/8A (standard), 32D/16A (analog-heavy), or 48D/8A (digital-heavy), depending on the cabinet.
           </p>
         </div>
       </div>

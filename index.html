@@ -16,10 +16,10 @@
 <body>
 
 <!-- ========================================================
-     RUNNING TOP BAR — like a folio header on every page
+     RUNNING TOP BAR
      ======================================================== -->
 <header class="topbar">
-  <div class="wrap" style="display:grid; grid-template-columns: auto 1fr auto; gap:24px; align-items:center; padding: 18px 0;">
+  <div class="wrap" style="display:grid; grid-template-columns: auto 1fr auto auto; gap:24px; align-items:center; padding: 18px 0;">
     <a href="index.html" class="brand-mark" aria-label="Arcade Commons">
       <svg viewBox="0 0 401.99 401.99" class="ac-mark" aria-hidden="true">
         <path fill="currentColor" d="m129.69,122.57l5.56,28.89c.78,4.06,3.29,7.59,6.87,9.65l24.58,14.19c4.41,2.55,7.13,7.25,7.13,12.35v17.24s-28.1,0-28.1,0c-8.86,0-16.04,7.18-16.04,16.04v42.01c0,10.19,5.44,19.61,14.27,24.7l57.04,32.92v-140.37c0-10.19-5.44-19.61-14.26-24.7l-57.05-32.94Zm44.16,107.82v43.13l-16.84-9.75c-2.2-1.27-3.56-3.62-3.56-6.17l-.02-23.61c0-1.97,1.59-3.56,3.56-3.57l16.86-.04Z"></path>
@@ -28,17 +28,18 @@
       <span class="mono-xs" style="letter-spacing:.14em;">ARCADE&nbsp;COMMONS</span>
     </a>
     <span class="mono-xs" style="color:var(--ink-faint); text-align:center; letter-spacing:.14em;">
-      ARCADE&nbsp;I/O&nbsp;·&nbsp;PICO&nbsp;CARRIER&nbsp;v0.1&nbsp;·&nbsp;FIELD&nbsp;GUIDE
+      ARCADE&nbsp;I/O&nbsp;&middot;&nbsp;PICO&nbsp;CARRIER&nbsp;v0.1&nbsp;&middot;&nbsp;FIELD&nbsp;GUIDE
     </span>
     <span class="mono-xs" style="color:var(--ink-faint); letter-spacing:.14em;">
       25.05.2026
     </span>
+    <button id="ac-gate" class="ac-gate-btn mono-xs">Edit</button>
   </div>
   <hr class="rule">
 </header>
 
 <!-- ========================================================
-     COVER — hero · title · contents (1:1 with source)
+     COVER — hero · title · contents
      ======================================================== -->
 <section id="cover" data-screen-label="00 Cover" style="padding-top: 32px;">
   <div class="wrap">
@@ -51,25 +52,29 @@
     <hr class="rule">
 
     <div class="hero-block">
-      <span class="eyebrow">Arcade I/O · Field Manual · Prototype Stream</span>
-      <h1 class="hero-h1">Arcade I/O Pico<br/>Carrier <span class="hero-v">v0.1</span></h1>
-      <p class="hero-sub">
-        A purpose-built USB input/output carrier for indie arcade cabinets: buttons, digital joysticks, Hall-effect analog sticks, SpinTrak-style spinners, pots, and a few cabinet LEDs.
-      </p>
+      <div data-editable data-cid="cover-hero">
+        <span class="eyebrow">Arcade I/O · Field Manual · Prototype Stream</span>
+        <h1 class="hero-h1">Arcade I/O Pico<br/>Carrier <span class="hero-v">v0.1</span></h1>
+        <p class="hero-sub">
+          A purpose-built USB input/output carrier for indie arcade cabinets: buttons, digital joysticks, Hall-effect analog sticks, SpinTrak-style spinners, pots, and a few cabinet LEDs.
+        </p>
+      </div>
 
-      <div class="hero-pills">
-        <span class="hpill"><b>Brain</b>Raspberry Pi Pico H / RP2040</span>
-        <span class="hpill"><b>Inputs</b>32 digital + 8 analog standard</span>
-        <span class="hpill"><b>Spinners</b>2–4 quadrature devices</span>
-        <span class="hpill"><b>Outputs</b>8–10 LED sink channels</span>
-        <span class="hpill"><b>Host</b>USB HID + serial control</span>
+      <div data-editable data-cid="cover-pills">
+        <div class="hero-pills">
+          <span class="hpill"><b>Brain</b>Raspberry Pi Pico H / RP2040</span>
+          <span class="hpill"><b>Inputs</b>32 digital + 8 analog standard</span>
+          <span class="hpill"><b>Spinners</b>2–4 quadrature devices</span>
+          <span class="hpill"><b>Outputs</b>8–10 LED sink channels</span>
+          <span class="hpill"><b>Host</b>USB HID + serial control</span>
+        </div>
       </div>
     </div>
 
     <hr class="rule" style="margin-top: 56px;">
     <div class="folio">
       <span class="num">CONTENTS</span>
-      <span class="ttl">Eight sections</span>
+      <span class="ttl">Seven sections</span>
       <span class="meta">≈ 18 min read</span>
     </div>
     <hr class="rule">
@@ -105,11 +110,6 @@
         <span class="t">Firmware + Unity</span>
         <span class="t-meta">HID + CDC · 1 ms loop</span>
       </a>
-      <a href="#build">
-        <span class="tag-num">§ 07</span>
-        <span class="t">Build sequence</span>
-        <span class="t-meta">Three passes · cautions</span>
-      </a>
       <a href="#sources">
         <span class="tag-num">§ 08</span>
         <span class="t">Sources</span>
@@ -131,47 +131,53 @@
     </div>
     <hr class="rule">
 
-    <div class="what-head">
-      <div>
-        <span class="eyebrow">§ 01 · What this board is</span>
-        <h2 style="margin-top:14px;">A Pico carrier,<br/>not a bare-RP2040 product yet.</h2>
-      </div>
-      <p class="body" style="align-self:end;">
-        The v0.1 board is a Pico-based carrier. The Pico provides USB, firmware flashing, 3.3V logic, timing, PWM, and the main control loop. The carrier board supplies the cabinet-specific hardware: input expansion, analog conversion, spinner headers, LED drivers, power handling, and readable field wiring.
-      </p>
-    </div>
-
-    <div class="stat-row" style="margin-top: 36px;">
-      <div class="stat" style="--lane:var(--teal);">
-        <span class="stat-bar"></span>
-        <span class="stat-n">32</span>
-        <span class="stat-lbl">Digital switch inputs<br/><em>standard</em></span>
-      </div>
-      <div class="stat" style="--lane:var(--green);">
-        <span class="stat-bar"></span>
-        <span class="stat-n">8</span>
-        <span class="stat-lbl">Analog inputs<br/><em>standard</em></span>
-      </div>
-      <div class="stat" style="--lane:var(--vermilion);">
-        <span class="stat-bar"></span>
-        <span class="stat-n">2–4</span>
-        <span class="stat-lbl">Quadrature spinner ports<br/><em>via Pico GPIO</em></span>
-      </div>
-      <div class="stat" style="--lane:var(--orange);">
-        <span class="stat-bar"></span>
-        <span class="stat-n">10</span>
-        <span class="stat-lbl">Low-side LED outputs<br/><em>PWM · MOSFET</em></span>
+    <div data-editable data-cid="what-intro">
+      <div class="what-head">
+        <div>
+          <span class="eyebrow">§ 01 · What this board is</span>
+          <h2 style="margin-top:14px;">A Pico carrier,<br/>not a bare-RP2040 product yet.</h2>
+        </div>
+        <p class="body" style="align-self:end;">
+          The v0.1 board is a Pico-based carrier. The Pico provides USB, firmware flashing, 3.3V logic, timing, PWM, and the main control loop. The carrier board supplies the cabinet-specific hardware: input expansion, analog conversion, spinner headers, LED drivers, power handling, and readable field wiring.
+        </p>
       </div>
     </div>
 
-    <div class="what-strategy" style="margin-top: 32px;">
-      <div class="strategy-card">
-        <h3>Control strategy</h3>
-        <p class="body" style="margin-top: 10px;">Digital joysticks and buttons are treated as switch-to-ground inputs. Hall-effect joysticks and potentiometers feed the ADC as voltage axes. Spinners feed the Pico directly as quadrature A/B signals so firmware can convert them to mouse movement or signed deltas.</p>
+    <div data-editable data-cid="what-stats">
+      <div class="stat-row" style="margin-top: 36px;">
+        <div class="stat" style="--lane:var(--teal);">
+          <span class="stat-bar"></span>
+          <span class="stat-n">32</span>
+          <span class="stat-lbl">Digital switch inputs<br/><em>standard</em></span>
+        </div>
+        <div class="stat" style="--lane:var(--green);">
+          <span class="stat-bar"></span>
+          <span class="stat-n">8</span>
+          <span class="stat-lbl">Analog inputs<br/><em>standard</em></span>
+        </div>
+        <div class="stat" style="--lane:var(--vermilion);">
+          <span class="stat-bar"></span>
+          <span class="stat-n">2–4</span>
+          <span class="stat-lbl">Quadrature spinner ports<br/><em>via Pico GPIO</em></span>
+        </div>
+        <div class="stat" style="--lane:var(--orange);">
+          <span class="stat-bar"></span>
+          <span class="stat-n">10</span>
+          <span class="stat-lbl">Low-side LED outputs<br/><em>PWM · MOSFET</em></span>
+        </div>
       </div>
-      <div class="strategy-card">
-        <h3>Software strategy</h3>
-        <p class="body" style="margin-top: 10px;">The board should enumerate as a normal USB input device for gameplay and expose a simple command channel for cabinet feedback. For v0.1, the least painful setup is HID gamepad/mouse for inputs and CDC serial for Unity-driven LEDs.</p>
+    </div>
+
+    <div data-editable data-cid="what-strategy">
+      <div class="what-strategy" style="margin-top: 32px;">
+        <div class="strategy-card">
+          <h3>Control strategy</h3>
+          <p class="body" style="margin-top: 10px;">Digital joysticks and buttons are treated as switch-to-ground inputs. Hall-effect joysticks and potentiometers feed the ADC as voltage axes. Spinners feed the Pico directly as quadrature A/B signals so firmware can convert them to mouse movement or signed deltas.</p>
+        </div>
+        <div class="strategy-card">
+          <h3>Software strategy</h3>
+          <p class="body" style="margin-top: 10px;">The board should enumerate as a normal USB input device for gameplay and expose a simple command channel for cabinet feedback. For v0.1, the least painful setup is HID gamepad/mouse for inputs and CDC serial for Unity-driven LEDs.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -181,7 +187,7 @@
   /* Cover-specific */
   .topbar { position: sticky; top: 0; background: var(--paper); z-index: 50; }
 
-  /* Hero block — kicker · h1 · subtitle · pills */
+  /* Hero block */
   .hero-block { margin-top: 40px; max-width: 980px; }
   .hero-h1 {
     margin-top: 22px;
@@ -227,7 +233,6 @@
     color: var(--ink);
   }
 
-  /* Distinct metric cards */
   .stat-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -276,7 +281,6 @@
     margin-top: 2px;
   }
 
-  /* "What this board is" two-card strategy */
   .what-head {
     display: grid;
     grid-template-columns: 1.3fr 1fr;
@@ -345,14 +349,16 @@
     </div>
     <hr class="rule">
 
-    <div class="anatomy-head">
-      <div>
-        <span class="eyebrow">§ 02 · Anatomy</span>
-        <h2 style="margin-top:14px;">Visual walkthrough</h2>
+    <div data-editable data-cid="anatomy-intro">
+      <div class="anatomy-head">
+        <div>
+          <span class="eyebrow">§ 02 · Anatomy</span>
+          <h2 style="margin-top:14px;">Visual walkthrough</h2>
+        </div>
+        <p class="body" style="align-self:end;">
+          The diagram is intentionally installation-oriented: the connector banks are as important as the chips. Colour code: <span class="mono-sm"><span class="dot blue"></span>data</span> · <span class="mono-sm"><span class="dot verm"></span>signal</span> · <span class="mono-sm"><span class="dot gold"></span>power &amp; light</span>.
+        </p>
       </div>
-      <p class="body" style="align-self:end;">
-        The diagram is intentionally installation-oriented: the connector banks are as important as the chips. Colour code: <span class="mono-sm"><span class="dot blue"></span>data</span> · <span class="mono-sm"><span class="dot verm"></span>signal</span> · <span class="mono-sm"><span class="dot gold"></span>power &amp; light</span>.
-      </p>
     </div>
 
     <div class="plate" style="margin-top: 36px;">
@@ -366,11 +372,13 @@
 
       <div id="anatomy-figure"></div>
 
-      <div class="plate-caption">
-        <span class="fig">Fig. 01</span>
-        <span class="desc">
-          Arcade I/O Pico Carrier v0.1 top-down layout. Teal = switch inputs and data; green = Hall/pot analog inputs; red-orange = quadrature spinners and the hero block; gold = LED sink outputs; the external LED-power input is admitted at the upper-right and never crosses logic ground except at the star point.
-        </span>
+      <div data-editable data-cid="anatomy-caption">
+        <div class="plate-caption">
+          <span class="fig">Fig. 01</span>
+          <span class="desc">
+            Arcade I/O Pico Carrier v0.1 top-down layout. Teal = switch inputs and data; green = Hall/pot analog inputs; red-orange = quadrature spinners and the hero block; gold = LED sink outputs; the external LED-power input is admitted at the upper-right and never crosses logic ground except at the star point.
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -389,16 +397,663 @@
   }
 </style>
 
-<!-- placeholders for the rest — injected by section scripts -->
-<div id="rest"></div>
+<!-- ========================================================
+     § 03 — Digital vs analog (migrated from sections.jsx)
+     ======================================================== -->
+<section id="capacity" data-screen-label="03 Digital vs analog">
+  <div class="wrap">
+    <div class="folio">
+      <span class="num">§ 03</span>
+      <span class="ttl">Digital vs analog</span>
+      <span class="meta">Two input families · capacity</span>
+    </div>
+    <hr class="rule">
+
+    <div data-editable data-cid="capacity-intro">
+      <div class="cap-head">
+        <div>
+          <span class="eyebrow">§ 03 · Digital vs analog</span>
+          <h2 style="margin-top:14px;">Digital vs analog</h2>
+        </div>
+        <p class="body" style="align-self:end;">
+          Digital and analog are two different input families, not two versions of the same thing. Each takes a separate path through the board — digital inputs through the shift registers, analog inputs through the ADC — and a cabinet's mix of the two determines how much fits.
+        </p>
+      </div>
+    </div>
+
+    <div class="cap-grid" style="margin-top: 36px;">
+
+      <!-- DIGITAL CASE -->
+      <div class="cap-card">
+        <div data-editable data-cid="capacity-digital-top">
+          <div class="cap-card-head">
+            <span class="callout-num blue" style="background: var(--teal)">D</span>
+            <div>
+              <h3>Digital inputs</h3>
+            </div>
+          </div>
+
+          <p class="body" style="margin-top: 14px;">
+            Digital inputs are on/off switch closures — buttons, digital joystick directions, and coin, start, service, and admin lines. Each shorts an input to ground, and the board reads them through the 74HC165 shift registers. The standard build has 32 digital inputs.
+          </p>
+          <p class="body" style="margin-top: 12px;">
+            A digital joystick uses four of them — up, down, left, right. <strong>4-way and 8-way sticks use the same four switches:</strong> an 8-way stick allows two adjacent directions to close at once, so up&nbsp;+&nbsp;right reads as a diagonal. There is no separate 8-way input.
+          </p>
+
+          <p class="body" style="margin-top: 12px;">
+            Four digital joysticks use 16 of the 32 inputs:
+          </p>
+
+          <pre class="loop-pre" style="margin-top: 14px;">4 digital sticks × 4 directions = 16 digital inputs
+32 digital inputs standard       = 16 spare inputs</pre>
+        </div>
+
+        <div id="capacity-digitalmath"></div>
+
+        <div data-editable data-cid="capacity-digital-bot">
+          <p class="body" style="margin-top: 14px;">
+            The remaining 16 inputs cover start, coin, service, and action buttons. A full four-player cabinet with a large button count can expand the digital side with two more 74HC165s, for 48 inputs.
+          </p>
+        </div>
+      </div>
+
+      <!-- ANALOG CASE -->
+      <div class="cap-card">
+        <div data-editable data-cid="capacity-analog-top">
+          <div class="cap-card-head">
+            <span class="callout-num" style="background: var(--green)">A</span>
+            <div>
+              <h3>Analog inputs</h3>
+            </div>
+          </div>
+
+          <p class="body" style="margin-top: 14px;">
+            Analog inputs are voltage axes — Hall-effect joysticks, potentiometers, sliders, and analog levers. Instead of shorting to ground, they output a changing voltage, which the MCP3208 ADC converts. The standard build has 8 analog channels.
+          </p>
+
+          <p class="body" style="margin-top: 12px;">
+            A Hall-effect joystick uses two channels — X and Y — so four of them fill one MCP3208:
+          </p>
+
+          <pre class="loop-pre" style="margin-top: 14px;">4 analog sticks × 2 axes = 8 analog inputs
+1 × MCP3208              = 8 analog inputs</pre>
+        </div>
+
+        <div id="capacity-analogmath"></div>
+
+        <div data-editable data-cid="capacity-analog-bot">
+          <p class="body" style="margin-top: 14px;">
+            For four analog sticks plus pots, sliders, or other analog controls, the board carries a second MCP3208 footprint, bringing it to 16 channels.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule" style="margin-top: 48px;" />
+    <div data-editable data-cid="capacity-designrule">
+      <div class="design-rule">
+        <span class="callout-num" style="background: var(--vermilion)">!</span>
+        <p>
+          <strong>Design rule:</strong> digital and analog draw on separate budgets — the shift registers and the ADC — so they are best treated as population options on one PCB. The same board can be assembled as 32D/8A (standard), 32D/16A (analog-heavy), or 48D/8A (digital-heavy), depending on the cabinet.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================
+     § 04 — Connector map (React island — kept in sections.jsx)
+     ======================================================== -->
+<div id="connectors-mount"></div>
+
+<!-- ========================================================
+     § 05 — Prototype BOM (migrated from sections.jsx)
+     ======================================================== -->
+<section id="bom" data-screen-label="05 BOM">
+  <div class="wrap">
+    <div class="folio">
+      <span class="num">§ 05</span>
+      <span class="ttl">Prototype BOM, excluding controls</span>
+      <span class="meta">Board-side electronics</span>
+    </div>
+    <hr class="rule">
+
+    <div data-editable data-cid="bom-intro">
+      <div class="cap-head">
+        <div>
+          <span class="eyebrow">§ 05 · Prototype BOM</span>
+          <h2 style="margin-top:14px;">
+            Prototype BOM,<br/>excluding controls
+          </h2>
+        </div>
+        <p class="body" style="align-self:end;">
+          This excludes joysticks, buttons, and spinners. It includes the board-side electronics needed to read those controls and drive a small number of LEDs.
+        </p>
+      </div>
+    </div>
+
+    <div class="bom-grid" style="margin-top: 36px;">
+      <div data-editable data-cid="bom-table">
+        <table class="spec bom-table">
+          <thead>
+            <tr>
+              <th style="width: 34%;">Subsystem</th>
+              <th style="width: 12%;">Qty</th>
+              <th style="width: 18%;">Prototype cost</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="val">Raspberry Pi Pico H</td>
+              <td class="label numerals">1</td>
+              <td class="val numerals" style="color: var(--vermilion)">$5.00</td>
+              <td class="val" style="color: var(--ink-soft)">Headers + debug pre-soldered. Cheaper than bare RP2040 for v0.1.</td>
+            </tr>
+            <tr>
+              <td class="val">74HC165 shift registers</td>
+              <td class="label numerals">4 (or 6)</td>
+              <td class="val numerals" style="color: var(--vermilion)">$3.75–$5.70</td>
+              <td class="val" style="color: var(--ink-soft)">32-input default. Add two for 48-input variant.</td>
+            </tr>
+            <tr>
+              <td class="val">MCP3208 ADC</td>
+              <td class="label numerals">1 (or 2)</td>
+              <td class="val numerals" style="color: var(--vermilion)">$2.10–$2.80</td>
+              <td class="val" style="color: var(--ink-soft)">8-ch · 12-bit. Second footprint for 16-ch builds.</td>
+            </tr>
+            <tr>
+              <td class="val">Logic-level N-MOSFET</td>
+              <td class="label numerals">10</td>
+              <td class="val numerals" style="color: var(--vermilion)">$0.50–$3.00</td>
+              <td class="val" style="color: var(--ink-soft)">AO3400A-class. Low-side LED sinks.</td>
+            </tr>
+            <tr>
+              <td class="val">Passives · pull-ups, caps, filters</td>
+              <td class="label numerals">lot</td>
+              <td class="val numerals" style="color: var(--vermilion)">$2.00–$6.00</td>
+              <td class="val" style="color: var(--ink-soft)">Input pull-ups, gate resistors, ADC filtering, decoupling.</td>
+            </tr>
+            <tr>
+              <td class="val">Power protection</td>
+              <td class="label numerals">1 set</td>
+              <td class="val numerals" style="color: var(--vermilion)">$1.50–$4.00</td>
+              <td class="val" style="color: var(--ink-soft)">Fuse / polyfuse, reverse protection, bulk cap, status LEDs.</td>
+            </tr>
+            <tr>
+              <td class="val">PCB fabrication</td>
+              <td class="label numerals">1</td>
+              <td class="val numerals" style="color: var(--vermilion)">$2.00–$8.00</td>
+              <td class="val" style="color: var(--ink-soft)">Five-board prototype deals are common.</td>
+            </tr>
+            <tr>
+              <td class="val">PCB assembly</td>
+              <td class="label numerals">opt.</td>
+              <td class="val numerals" style="color: var(--vermilion)">$2.00–$8.00</td>
+              <td class="val" style="color: var(--ink-soft)">Amortised if SMT assembled; THT terminals often hand-installed.</td>
+            </tr>
+            <tr>
+              <td class="val">Connectors / terminals</td>
+              <td class="label numerals">many</td>
+              <td class="val numerals" style="color: var(--vermilion)">$6.00–$25.00+</td>
+              <td class="val" style="color: var(--ink-soft)">Biggest swing item. Pluggable name-brand raises cost fast.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div data-editable data-cid="bom-target">
+        <aside class="target-card">
+          <h3>Realistic board-side target</h3>
+          <p class="body" style="margin-top: 10px; font-size: 14px;">
+            For a small batch using a Pico H module and screw terminals, budget roughly:
+          </p>
+          <div class="big-num">
+            <span class="numerals">$35–$55</span>
+            <span class="big-num-sub">per populated board</span>
+          </div>
+          <p class="body" style="margin-top: 14px; font-size: 13px;">
+            Expanded analog or digital variants usually add more connector cost than chip cost.
+          </p>
+
+          <hr class="rule" style="margin: 20px 0;" />
+          <span class="mono-xs" style="color: var(--vermilion)">COST TRAP</span>
+          <p class="body" style="font-size: 13px; margin-top: 6px;">
+            Connectors dominate the small-batch BOM. Do not over-optimize the MCU before deciding how cabinets will actually be wired.
+          </p>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================
+     § 06 — Firmware + Unity (migrated from sections.jsx)
+     ======================================================== -->
+<section id="firmware" data-screen-label="06 Firmware">
+  <div class="wrap">
+    <div class="folio">
+      <span class="num">§ 06</span>
+      <span class="ttl">Firmware and Unity communication</span>
+      <span class="meta">HID + CDC · ~1 ms target loop</span>
+    </div>
+    <hr class="rule">
+
+    <div data-editable data-cid="firmware-intro">
+      <div class="cap-head">
+        <div>
+          <span class="eyebrow">§ 06 · Firmware + Unity</span>
+          <h2 style="margin-top:14px;">Firmware and Unity communication</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="cap-grid" style="margin-top: 36px;">
+      <div data-editable data-cid="firmware-usb">
+        <div class="cap-card">
+          <h3>v0.1 USB behaviour</h3>
+          <p class="body" style="margin-top: 12px;">
+            Start with a composite behaviour that is easy to test outside Unity:
+          </p>
+          <pre class="loop-pre" style="margin-top: 14px;">Inputs:
+  HID gamepad  -> buttons + analog axes
+  HID mouse    -> spinner relative movement
+
+Outputs:
+  CDC serial   -> Unity LED/control commands</pre>
+        </div>
+      </div>
+
+      <div data-editable data-cid="firmware-led">
+        <div class="cap-card">
+          <h3>Simple LED command protocol</h3>
+          <p class="body" style="margin-top: 12px;">
+            Keep the first pass human-readable. It makes field diagnostics much easier.
+          </p>
+          <pre class="loop-pre" style="margin-top: 14px;">AIO?
+LED 0 255
+LED 1 080
+PULSE 3 250
+ALL 0
+MODE ATTRACT 1</pre>
+        </div>
+      </div>
+    </div>
+
+    <div data-editable data-cid="firmware-loop">
+      <div class="cap-card" style="margin-top: 24px;">
+        <h3>Firmware loop</h3>
+        <pre class="loop-pre" style="margin-top: 14px;">Target scan · roughly 1 ms (timing to confirm):
+  latch + read 74HC165 digital inputs
+  debounce switch states
+  read quadrature spinner counters
+  sample MCP3208 analog channels
+  apply calibration, deadzones, smoothing, inversion
+  send HID reports when state changes
+  parse LED commands from serial
+  update LED PWM outputs</pre>
+        <p class="body" style="margin-top: 14px; font-size: 13px; color: var(--ink-soft);">
+          Treat ~1 ms as a target for input responsiveness, not a fixed guarantee — the real rate depends on ADC sampling, HID reporting, and how much serial and LED work each pass does. LED output timing in particular may need tuning: with larger or addressable LED arrays, an update rate that doesn&rsquo;t line up cleanly with the scan loop can surface as visible shimmer or marching artifacts in an animation. The discrete MOSFET PWM channels on v0.1 don&rsquo;t hit this — it only becomes a concern if a cabinet later grows into a big addressable array.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================
+     § 08 — Sources (migrated from sections.jsx)
+     ======================================================== -->
+<section id="sources" data-screen-label="08 Sources">
+  <div class="wrap">
+    <div class="folio">
+      <span class="num">§ 08</span>
+      <span class="ttl">Sources and assumptions</span>
+      <span class="meta">All prices indicative, USD, 2026</span>
+    </div>
+    <hr class="rule">
+
+    <div data-editable data-cid="sources-intro">
+      <div class="cap-head">
+        <div>
+          <span class="eyebrow">§ 08 · Sources</span>
+          <h2 style="margin-top:14px;">Sources and assumptions</h2>
+        </div>
+        <p class="body" style="align-self:end;">
+          Part prices are rough USD snapshots for prototype planning and can change with supplier, package, quantity, shipping, and availability. Controls themselves — joysticks, buttons, and spinners — are intentionally excluded from the BOM table.
+        </p>
+      </div>
+    </div>
+
+    <div data-editable data-cid="sources-list">
+      <ul class="source-list" style="margin-top: 36px;">
+        <li>
+          <span class="n">01</span>
+          <a href="https://www.raspberrypi.com/documentation/microcontrollers/pico-series.html" target="_blank" rel="noopener noreferrer">
+            <span class="s-title">Raspberry Pi Pico documentation</span>
+            <span class="s-sub">GPIO · ADC · PWM · USB · PIO</span>
+          </a>
+        </li>
+        <li>
+          <span class="n">02</span>
+          <a href="https://www.raspberrypi.com/news/raspberry-pi-pico-w-your-6-iot-platform/" target="_blank" rel="noopener noreferrer">
+            <span class="s-title">Raspberry Pi Pico H launch note</span>
+            <span class="s-sub">Pre-soldered headers · debug</span>
+          </a>
+        </li>
+        <li>
+          <span class="n">03</span>
+          <a href="https://www.ti.com/product/SN74HC165" target="_blank" rel="noopener noreferrer">
+            <span class="s-title">Texas Instruments SN74HC165</span>
+            <span class="s-sub">Parallel-in serial-out · 8 bit</span>
+          </a>
+        </li>
+        <li>
+          <span class="n">04</span>
+          <a href="https://www.microchip.com/en-us/product/mcp3208" target="_blank" rel="noopener noreferrer">
+            <span class="s-title">Microchip MCP3208</span>
+            <span class="s-sub">12-bit SPI ADC · 8 channels</span>
+          </a>
+        </li>
+        <li>
+          <span class="n">05</span>
+          <a href="https://www.ultimarc.com/trackballs-and-spinners/spinners/spintrak/" target="_blank" rel="noopener noreferrer">
+            <span class="s-title">Ultimarc SpinTrak</span>
+            <span class="s-sub">Quadrature spinner reference</span>
+          </a>
+        </li>
+        <li>
+          <span class="n">06</span>
+          <a href="https://www.digikey.com/en/products/detail/texas-instruments/SN74HC165N/376966" target="_blank" rel="noopener noreferrer">
+            <span class="s-title">DigiKey SN74HC165N</span>
+            <span class="s-sub">Pricing reference</span>
+          </a>
+        </li>
+        <li>
+          <span class="n">07</span>
+          <a href="https://www.digikey.com/en/products/detail/microchip-technology/MCP3208-CI-SL/305929" target="_blank" rel="noopener noreferrer">
+            <span class="s-title">DigiKey MCP3208-CI/SL</span>
+            <span class="s-sub">Pricing reference</span>
+          </a>
+        </li>
+        <li>
+          <span class="n">08</span>
+          <a href="https://www.lcsc.com/product-detail/C20917.html" target="_blank" rel="noopener noreferrer">
+            <span class="s-title">LCSC AO3400A</span>
+            <span class="s-sub">MOSFET pricing reference</span>
+          </a>
+        </li>
+        <li>
+          <span class="n">09</span>
+          <a href="https://jlcpcb.com/help/article/pcb-assembly-price" target="_blank" rel="noopener noreferrer">
+            <span class="s-title">JLCPCB assembly</span>
+            <span class="s-sub">PCBA pricing reference</span>
+          </a>
+        </li>
+        <li>
+          <span class="n">10</span>
+          <a href="https://jlcpcb.com/" target="_blank" rel="noopener noreferrer">
+            <span class="s-title">JLCPCB prototype</span>
+            <span class="s-sub">PCB fabrication pricing</span>
+          </a>
+        </li>
+        <li>
+          <span class="n">11</span>
+          <a href="https://www.lcsc.com/product-detail/C474952.html" target="_blank" rel="noopener noreferrer">
+            <span class="s-title">LCSC 5.08mm terminals</span>
+            <span class="s-sub">Connector pricing reference</span>
+          </a>
+        </li>
+        <li>
+          <span class="n">12</span>
+          <a href="https://docs.unity3d.com/Packages/com.unity.inputsystem%401.0/manual/HID.html" target="_blank" rel="noopener noreferrer">
+            <span class="s-title">Unity Input System</span>
+            <span class="s-sub">HID device support</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div data-editable data-cid="sources-outro">
+      <hr class="rule" style="margin-top: 56px;" />
+      <p class="body" style="margin-top: 24px; font-size: 14px; color: var(--ink-faint);">
+        Generated as a single-file HTML prototype for GitHub Pages. Rename to <code>index.html</code> or drop into an existing docs folder.
+      </p>
+    </div>
+
+    <hr class="rule" style="margin-top: 32px;" />
+    <div class="endmark">
+      <div class="endmark-bar"></div>
+      <div class="endmark-text">
+        End of field manual.
+        <span class="mono-xs" style="color: var(--ink-faint)">ARCADE I/O · PICO CARRIER v0.1 · 7 / 7</span>
+      </div>
+      <div class="endmark-bar"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Phase 2.5 — Gate UI */
+  .ac-gate-btn { border:1px solid var(--rule-quiet); background:var(--paper); color:var(--ink-faint);
+    font:500 10px/1 var(--mono); letter-spacing:.14em; text-transform:uppercase;
+    padding:5px 10px; border-radius:3px; cursor:pointer; }
+  .ac-gate-btn.ac-on { color:var(--teal); border-color:var(--teal); }
+  #ac-gate-wrap { display:inline-flex; gap:8px; align-items:center; margin-left:8px; }
+  #ac-gate-input { font:400 12px/1 var(--mono); padding:5px 8px; border:1px solid var(--teal);
+    border-radius:3px; background:var(--paper); color:var(--ink); width:180px; }
+  #ac-gate-msg { color:var(--vermilion); }
+
+  /* Per-block edit buttons HIDDEN unless edit mode is unlocked */
+  .ac-edit-btn { display:none; position:absolute; top:6px; right:6px; font:500 9px/1 var(--mono);
+    letter-spacing:.08em; color:var(--teal); background:var(--paper);
+    border:1px solid var(--teal); border-radius:3px; padding:2px 6px;
+    cursor:pointer; z-index:10; }
+  body.ac-edit-mode [data-editable]:hover > .ac-edit-btn,
+  body.ac-edit-mode .ac-edit-btn.ac-active { display:inline-block; }
+
+  /* Phase 3 — Editor chrome */
+  .ac-editing { outline:2px dashed var(--teal); outline-offset:8px; }
+  @media print { .ac-edit-btn { display:none !important; } }
+</style>
 
 <!-- ========================================================
      SCRIPTS
      ======================================================== -->
+
+<!-- Phase 1 — ArcadeApp scaffold (vanilla, no JSX) -->
+<script>
+window.ArcadeApp = (function () {
+  var SUPABASE_URL = 'https://evskzyurkqzjjakbrawo.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable__PF5Yt_TJfHBLvQKM-sydA_qvCpcE-Z';
+  var VERSION  = 'v0.2';
+  var COMPILED = '26 May 2026';
+
+  function sb(path, opts) {
+    return fetch(SUPABASE_URL + '/rest/v1/' + path, Object.assign({
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      }
+    }, opts));
+  }
+  function storage(path, opts) {
+    return fetch(SUPABASE_URL + '/storage/v1/' + path, Object.assign({
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+    }, opts));
+  }
+  return { URL: SUPABASE_URL, KEY: SUPABASE_KEY, VERSION: VERSION, COMPILED: COMPILED, sb: sb, storage: storage };
+})();
+</script>
+
+<!-- Phase 2.5 — Edit gate (vanilla, no JSX) -->
+<script>
+(function () {
+  var KEY_FLAG = 'ac_edit_unlocked';
+  var URL = window.ArcadeApp.URL;
+  var KEY = window.ArcadeApp.KEY;
+  var btn = document.getElementById('ac-gate');
+
+  function setMode(on) {
+    document.body.classList.toggle('ac-edit-mode', on);
+    btn.textContent = on ? 'Editing — lock' : 'Edit';
+    btn.classList.toggle('ac-on', on);
+  }
+
+  function checkEmail(addr) {
+    return fetch(URL + '/rest/v1/rpc/is_editor', {
+      method: 'POST',
+      headers: { 'apikey': KEY, 'Authorization': 'Bearer ' + KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ addr: addr })
+    }).then(function (res) {
+      return res.ok ? res.json() : false;
+    }).then(function (val) {
+      return val === true;
+    }).catch(function () { return false; });
+  }
+
+  function promptEmail() {
+    if (document.getElementById('ac-gate-input')) return;
+    var wrap = document.createElement('span');
+    wrap.id = 'ac-gate-wrap';
+    wrap.innerHTML = '<input id="ac-gate-input" type="email" placeholder="email to edit" autocomplete="email">'
+                   + '<span id="ac-gate-msg" class="mono-xs"></span>';
+    btn.after(wrap);
+    var input = wrap.querySelector('#ac-gate-input');
+    var msg = wrap.querySelector('#ac-gate-msg');
+    input.focus();
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { wrap.remove(); }
+      if (e.key === 'Enter') {
+        checkEmail(input.value.trim()).then(function (ok) {
+          if (ok) {
+            localStorage.setItem(KEY_FLAG, input.value.trim().toLowerCase());
+            wrap.remove(); setMode(true);
+          } else { msg.textContent = 'not on the list'; }
+        });
+      }
+    });
+  }
+
+  btn.addEventListener('click', function () {
+    if (document.body.classList.contains('ac-edit-mode')) {
+      localStorage.removeItem(KEY_FLAG); setMode(false);
+    } else if (localStorage.getItem(KEY_FLAG)) {
+      setMode(true);
+    } else {
+      promptEmail();
+    }
+  });
+
+  // Auto-unlock on load if this device was approved before
+  if (localStorage.getItem(KEY_FLAG)) setMode(true);
+})();
+</script>
+
+<!-- React islands (Babel-in-browser) -->
 <script type="text/babel" src="mini-diagrams.jsx"></script>
 <script type="text/babel" src="anatomy.jsx"></script>
 <script type="text/babel" src="sections.jsx"></script>
 
+<!-- Phase 3 — Per-block editor (vanilla JS) -->
+<script>
+(function () {
+  var sb = window.ArcadeApp.sb;
+  var SANITIZE = '.ac-edit-btn, .ac-add-point, .ac-block-del';
+  var _orig = {};
+  var _active = null;
+
+  function clean(html) {
+    var t = document.createElement('div');
+    t.innerHTML = html;
+    t.querySelectorAll(SANITIZE).forEach(function (el) { el.remove(); });
+    return t.innerHTML;
+  }
+
+  function wire(box) {
+    if (box.querySelector(':scope > .ac-edit-btn')) return;
+    var btn = document.createElement('button');
+    btn.className = 'ac-edit-btn'; btn.textContent = 'edit';
+    btn.onclick = function () { if (!_active) enter(box, btn); };
+    box.style.position = box.style.position || 'relative';
+    box.appendChild(btn);
+  }
+
+  function enter(box, btn) {
+    _orig[box.dataset.cid] = box.innerHTML;
+    _active = { box: box, btn: btn };
+    box.classList.add('ac-editing');
+    box.contentEditable = 'true';
+    box.focus();
+    btn.textContent = 'save';
+    btn.onclick = function () { save(box, btn); };
+  }
+
+  function save(box, btn) {
+    box.contentEditable = 'false';
+    box.classList.remove('ac-editing');
+    var cid = box.dataset.cid;
+    var html = clean(box.innerHTML);
+    btn.textContent = '…';
+    sb('ac_section_content', {
+      method: 'POST',
+      headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
+      body: JSON.stringify({ cid: cid, html: html, updated_at: new Date().toISOString() })
+    }).then(function (res) {
+      if (!res.ok) throw new Error(res.status);
+      btn.textContent = 'saved'; btn.classList.add('ac-active');
+      setTimeout(function () { btn.textContent = 'edit'; btn.classList.remove('ac-active'); reset(box, btn); }, 1500);
+    }).catch(function () {
+      btn.textContent = 'error';
+      setTimeout(function () { btn.textContent = 'edit'; reset(box, btn); }, 2000);
+    });
+    _active = null;
+  }
+
+  function cancel(box, btn) {
+    box.innerHTML = _orig[box.dataset.cid];
+    box.contentEditable = 'false';
+    box.classList.remove('ac-editing');
+    _active = null; wire(box); reset(box, btn);
+  }
+  function reset(box, btn) { btn.onclick = function () { if (!_active) enter(box, btn); }; }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && _active) { e.preventDefault(); cancel(_active.box, _active.btn); }
+  });
+
+  document.querySelectorAll('[data-editable]').forEach(wire);
+  window._acWire = wire;
+})();
+</script>
+
+<!-- Phase 4 — On-load loader -->
+<script>
+(function () {
+  function loadContent() {
+    var URL = window.ArcadeApp.URL;
+    var KEY = window.ArcadeApp.KEY;
+    try {
+      fetch(URL + '/rest/v1/ac_section_content?select=cid,html', { headers: { apikey: KEY } })
+        .then(function (res) { return res.ok ? res.json() : []; })
+        .then(function (rows) {
+          rows.forEach(function (row) {
+            var box = document.querySelector('[data-cid="' + row.cid + '"]');
+            if (!box) return;
+            var t = document.createElement('div');
+            t.innerHTML = row.html;
+            t.querySelectorAll('.ac-edit-btn, .ac-add-point, .ac-block-del').forEach(function (el) { el.remove(); });
+            box.innerHTML = t.innerHTML;
+            if (window._acWire) window._acWire(box);
+          });
+        })
+        .catch(function () { /* silent — static content still shows */ });
+    } catch (e) { /* silent */ }
+  }
+  loadContent();
+})();
+</script>
 
 </body>
 </html>

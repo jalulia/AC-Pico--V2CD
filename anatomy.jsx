@@ -159,6 +159,9 @@ function Anatomy() {
 
   const activeCallout = CALLOUTS.find(c => c.n === active) || CALLOUTS[0];
   const numFor = Object.fromEntries(CALLOUTS.map(c => [c.n, c.num]));
+  const titleFor = Object.fromEntries(CALLOUTS.map(c => [c.n, c.title]));
+  const eyebrowFor = Object.fromEntries(CALLOUTS.map(c => [c.n, c.eyebrow]));
+  const toneFor = Object.fromEntries(CALLOUTS.map(c => [c.n, c.tone]));
 
   return (
     <div>
@@ -597,6 +600,17 @@ function Anatomy() {
             <polyline points="876,268 876,300" className="gold" strokeWidth="1.5" fill="none" />
             <text x="876" y="312" className="lbl-sm fill-only" stroke="none" textAnchor="middle" style={{ fontSize: 7 }}>VLED+ → LED (EXT)</text>
 
+            {/* ---- pad junctions: where each bus lands on a Pico pad ---- */}
+            {[300, 315, 330, 540, 555, 570, 585].map((y, i) => (
+              <circle key={'jb' + i} cx="532" cy={y} r="2.2" className="blue-fill fill-only" stroke="none" />
+            ))}
+            {[360, 375, 390, 405, 420, 435, 450, 465].map((y, i) => (
+              <circle key={'jv' + i} cx="532" cy={y} r="2.2" className="verm-fill fill-only" stroke="none" />
+            ))}
+            {Array.from({ length: 10 }).map((_, k) => (
+              <circle key={'jg' + k} cx="748" cy={300 + k * 15} r="2.2" className="gold-fill fill-only" stroke="none" />
+            ))}
+
           </g>
 
           {/* =================================================
@@ -643,6 +657,26 @@ function Anatomy() {
               >
                 {numFor[n] || n}
               </text>
+              {/* inventory tag beside the badge */}
+              {(() => {
+                const forceLeft = (n === '09' || n === 'TERM');
+                const side = forceLeft ? -1 : (x3 < 640 ? -1 : 1);
+                const lx = x3 + side * 20;
+                const anchor = side < 0 ? 'end' : 'start';
+                const t = toneFor[n];
+                const sw = t === 'verm' ? 'var(--vermilion)' : t === 'blue' ? 'var(--inkblue)' : t === 'gold' ? 'var(--gold)' : 'var(--ink)';
+                return (
+                  <g>
+                    <text x={lx} y={y3 - 2} textAnchor={anchor} stroke="none"
+                      style={{ fontFamily: 'var(--sans)', fontSize: 13, fontWeight: 500, fill: 'var(--ink)', letterSpacing: '-.01em' }}>
+                      {titleFor[n]}
+                    </text>
+                    <text x={lx} y={y3 + 12} textAnchor={anchor} className="lbl-sm" stroke="none" style={{ fontSize: 8 }}>
+                      <tspan style={{ fill: sw }}>■ </tspan>{eyebrowFor[n]}
+                    </text>
+                  </g>
+                );
+              })()}
             </g>
           ))}
 

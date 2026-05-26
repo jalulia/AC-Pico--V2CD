@@ -736,7 +736,7 @@ function Anatomy() {
             <div className="ae-d-lead">
               <p className="ae-d-body">{activeCallout.body}</p>
               <div className="ae-d-photo">
-                <img src={activeCallout.photo} alt={activeCallout.title} style={{width:'100%',height:'100%',objectFit:'contain'}} />
+                <img src={activeCallout.photo} alt={activeCallout.title} style={{maxWidth:'100%',maxHeight:'100%',width:'auto',height:'auto',objectFit:'contain'}} />
               </div>
             </div>
 

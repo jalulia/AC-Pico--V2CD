@@ -519,59 +519,6 @@ const DONTS = [
   'Do not make terminal labels tiny. Field-wiring readability is a real feature.'
 ];
 
-function BuildSection() {
-  return (
-    <section id="build" data-screen-label="07 Build sequence">
-      <div className="wrap">
-        <div className="folio">
-          <span className="num">§ 07</span>
-          <span className="ttl">Build sequence</span>
-          <span className="meta">Three passes · cautions</span>
-        </div>
-        <hr className="rule" />
-
-        <div className="cap-head">
-          <div>
-            <span className="eyebrow">§ 07 · Build sequence</span>
-            <h2 style={{ marginTop: 14 }}>Build sequence</h2>
-          </div>
-        </div>
-
-        <div className="passes" style={{ marginTop: 36 }}>
-          {PASSES.map((p, i) => (
-            <div key={p.id} className="pass-card">
-              <div className="pass-head">
-                <div className="pass-id">
-                  <span className="mono-xs" style={{ color: 'var(--ink-faint)' }}>PASS</span>
-                  <span className="pass-letter">{p.id}</span>
-                </div>
-                <h3>{p.title}</h3>
-                {i < PASSES.length - 1 && <span className="pass-arrow">→</span>}
-              </div>
-              <p className="body" style={{ marginTop: 14 }}>{p.body}</p>
-            </div>
-          ))}
-        </div>
-
-        <hr className="rule" style={{ marginTop: 48 }} />
-
-        <div className="donts" style={{ marginTop: 32 }}>
-          <div>
-            <h3 style={{ fontSize: 24 }}>Do not do these yet</h3>
-          </div>
-          <ul className="k-list" style={{ marginTop: 0 }}>
-            {DONTS.map((d, i) => (
-              <li key={i}>
-                <span className="n">{String(i + 1).padStart(2, '0')}</span>
-                <span>{d}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* --- §08 COLOPHON / SOURCES -------------------------------- */
 const SOURCES = [
@@ -651,7 +598,6 @@ function App() {
       <Connectors />
       <BOMSection />
       <Firmware />
-      <BuildSection />
       <Sources />
     </>
   );
